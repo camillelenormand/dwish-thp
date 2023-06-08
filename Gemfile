@@ -75,3 +75,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "high_voltage", "~> 3.1"
+
+gem "view_component", "~> 3.1"

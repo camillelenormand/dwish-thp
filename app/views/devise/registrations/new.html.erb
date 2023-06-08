@@ -6,6 +6,21 @@
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="form-outline mb-4">
+        <%= f.label :first_name, "Prénom", class:"form-label" %>
+        <%= f.text_field :first_name, autofocus: true, class:"form-control" %>
+      </div>
+
+       <div class="form-outline mb-4">
+        <%= f.label :last_name, "Nom", class:"form-label" %>
+        <%= f.text_field :last_name, autofocus: true, class:"form-control" %>
+      </div>
+
+      <div class="form-outline mb-4">
+        <%= f.label :phone, "Téléphone", class:"form-label" %>
+        <%= f.text_field :phone, autofocus: true, class:"form-control" %>
+      </div>
+
+      <div class="form-outline mb-4">
         <%= f.label :email, class:"form-label" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
       </div>
@@ -19,7 +34,7 @@
       </div>
 
       <div class="form-outline mb-4">
-        <%= f.label :password_confirmation, class:"form-label" %>
+        <%= f.label :password_confirmation, "Confirmez votre mot de passe", class:"form-label" %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
       </div>
 

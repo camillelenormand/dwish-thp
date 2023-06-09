@@ -30,7 +30,7 @@
           <%= render(CartButtonComponent.new(cart_size: @cart_size, icon: "fa fa-shopping-bag", url: root_path, style:"btn btn-outline-primary rounded-pill")) %>
         <% else %>
           <%= button_to "Se connecter", new_user_session_path, class:"btn btn-dark px-3 me-2" %>
-          <%= button_to "Créer un compte", new_user_registration_path, class:"btn btn-light me-3" %>
+          <%= link_to "Créer un compte", new_user_registration_path, class:"btn btn-light me-3" %>
         <% end %>
       </div>
  </nav>

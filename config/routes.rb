@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :categories
   resources :items
-  
+  resources :users, only: [:index, :show, :edit, :update]
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

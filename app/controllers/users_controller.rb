@@ -17,6 +17,10 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def create
+    
+  end
+
   def update
     respond_to do |format|
       if current_user.update(user_params)

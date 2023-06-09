@@ -1,18 +1,22 @@
 <nav class="navbar navbar-expand-lg bg-white mb-5">
     <a class="navbar-brand" href="/">
       <img src="https://res.cloudinary.com/dhcqyjeip/image/upload/v1686220004/Dwish/logo_navbar_hg4azx.svg" alt="Dwish" width="120" height="20">
+     
+      <!-- Mobile View -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Tabs --->
       <div class="navbar-nav mt-2">
           <%= link_to "Commander", items_path, class:"nav-link text-black" %>          
           <a class="nav-link text-black" href="/traiteur">Traiteur</a>
           <a class="nav-link text-black" href="/a-propos">A propos</a>
       </div>
     </div>
-     <!-- Left links -->
 
+     <!-- Left links -->
       <div class="d-flex align-items-center">
         <% if user_signed_in? %>
           <div class="dropdown">

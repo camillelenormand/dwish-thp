@@ -10,9 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_06_08_095117) do
+ActiveRecord::Schema[7.1].define(version: 2023_06_09_123956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cart_items", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.integer "quantity"
+    t.bigint "cart_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.integer "status"
+    t.text "comments"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -33,6 +52,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_06_08_095117) do
     t.index ["category_id"], name: "index_items_on_category_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.string "operation_id_paygreen", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.bigint "user_id", null: false
+    t.bigint "cart_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
+    t.index ["operation_id_paygreen"], name: "index_orders_on_operation_id_paygreen", unique: true
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -45,5 +77,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_06_08_095117) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "carts", "users"
   add_foreign_key "items", "categories"
+  add_foreign_key "orders", "carts"
+  add_foreign_key "orders", "users"
 end

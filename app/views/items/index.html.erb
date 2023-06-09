@@ -9,15 +9,15 @@ h1 {
   align-items: flex-start;
     padding: 10px;
   border: 1px solid #000;
-}
+ }
 
   </style>
 <p style="color: green"><%= notice %></p>
 
 
 <div class="container-fluid">
-
-  <div class= "col-sm-7 inline text-center" >
+<aside class="aside aside-2">Aside 2</aside>
+  <div class= "col-sm-7 text-center" >
   <h1>bloc items</h1>
     <div id="itemsblock">
       <% @items.each do |item| %>
@@ -33,6 +33,6 @@ h1 {
       </div>
       <% end %>
     </div>
-  </div>
-
+     </div>
+ 
 

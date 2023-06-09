@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="https://kit.fontawesome.com/4fbe108c21.js" crossorigin="anonymous"></script>    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="container-fluid p-5">
     <header>
        <%= render partial: 'shared/navbar' %>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+       <%= render partial: "shared/flash" %>
     </header>
     <%= yield %>
     <%= render partial: 'shared/footer'%>

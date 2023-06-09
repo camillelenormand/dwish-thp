@@ -1,22 +1,49 @@
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-white mb-5">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+
+      <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+       <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
     <a class="navbar-brand" href="/">
-      <img src="https://res.cloudinary.com/dhcqyjeip/image/upload/v1686220004/Dwish/logo_navbar_hg4azx.svg" alt="Dwish" width="120" height="20">
-     
-      <!-- Mobile View -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <img 
+        src="https://res.cloudinary.com/dhcqyjeip/image/upload/v1686220004/Dwish/logo_navbar_hg4azx.svg" 
+        alt="Dwish" 
+        width="120" 
+        height="20">
+    </a>
 
-      <!-- Tabs --->
-      <div class="navbar-nav mt-2">
-          <%= link_to "Commander", items_path, class:"nav-link text-black" %>          
-          <a class="nav-link text-black" href="/traiteur">Traiteur</a>
-          <a class="nav-link text-black" href="/a-propos">A propos</a>
-      </div>
+      <!-- Left links -->
+    <div class="navbar-nav me-auto mb-2 mt-2 mb-lg-0">
+      <li class="nav-item">
+        <%= link_to "Commander", items_path, class:"nav-link text-black" %> 
+      </li>   
+      <li class="nav-item">      
+        <a class="nav-link text-black" href="/traiteur">Traiteur</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-black" href="/a-propos">A propos</a>
+      </li>
     </div>
+    <!-- Left links -->
+  </div>
+   <!-- Collapsible wrapper -->
 
-     <!-- Left links -->
+     <!-- Right elements -->
       <div class="d-flex align-items-center">
         <% if user_signed_in? %>
           <div class="dropdown">
@@ -33,5 +60,10 @@
           <%= link_to "Créer un compte", new_user_registration_path, class:"btn btn-light me-3" %>
         <% end %>
       </div>
+      <!-- Right elements -->
+  </div>
+  <!-- Container wrapper -->
  </nav>
+
+
 

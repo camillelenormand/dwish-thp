@@ -1,7 +1,9 @@
 <div class="container-fluid">
   <%= render partial: 'shared/jumbotron' %>
   <div class="m-5 pt-2"></div>
-  <%= render partial: 'shared/button' %>
+    <div class="text-center">
+    <%= render(ButtonComponent.new(label: "Commander maintenant!", url: items_path, style: "dark", size: "lg")) %>
+    </div>
   <div class="m-5 pt-2"></div>
   <%= render partial: 'shared/gallery' %>
 <div>

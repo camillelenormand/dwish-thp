@@ -47,11 +47,12 @@
       <div class="d-flex align-items-center">
         <% if user_signed_in? %>
           <div class="dropdown">
-            <button class="btn btn-dark px-3 me-2 rounded-pill dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-dark px-3 me-2 rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Mon compte
             </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-menu">
                 <%= link_to "Profil", user_path(current_user), class:"dropdown-item" %>
+                <li><hr class="dropdown-divider"></li>
                 <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
           </div>
           <%= render(CartButtonComponent.new(cart_size: @cart_size, icon: "fa fa-shopping-bag", url: root_path, style:"btn btn-outline-primary rounded-pill")) %>
@@ -67,15 +68,4 @@
   <!-- Container wrapper -->
  </nav>
 
-<script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
 

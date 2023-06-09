@@ -15,7 +15,7 @@
 
       <div class="d-flex align-items-center">
         <% if user_signed_in? %>
-          <%= link_to "Mon compte", user_session_path, class:"btn btn-dark px-3 me-2 rounded-pill" %>
+          <%= link_to "Mon compte", user_path(current_user), class:"btn btn-dark px-3 me-2 rounded-pill" %>
           <%= render(CartButtonComponent.new(cart_size: @cart_size, icon: "fa fa-shopping-bag", url: root_path, style:"btn btn-outline-primary rounded-pill")) %>
         <% else %>
           <%= link_to "Se connecter", new_user_session_path, class:"btn btn-dark px-3 me-2" %>

@@ -1,4 +1,4 @@
-<%= link_to @url, class: "btn btn-primary" do %>
+<%= link_to @url, class: @style do %>
   <i class="<%= @icon %>"></i>
-  (<%= @cart_size %>)
+  <%= @cart_size %>
 <% end %>

@@ -15,8 +15,8 @@
 
       <div class="d-flex align-items-center">
         <% if user_signed_in? %>
-          <%= link_to "Mon compte", new_user_session_path, class:"btn btn-dark px-3 me-2" %>
-          <%= render(CartButtonComponent.new(cart_size: @cart_size, icon: "fas fa-shopping-cart", url: root_path)) %>
+          <%= link_to "Mon compte", user_session_path, class:"btn btn-dark px-3 me-2 rounded-pill" %>
+          <%= render(CartButtonComponent.new(cart_size: @cart_size, icon: "fa fa-shopping-bag", url: root_path, style:"btn btn-outline-primary rounded-pill")) %>
         <% else %>
           <%= link_to "Se connecter", new_user_session_path, class:"btn btn-dark px-3 me-2" %>
           <%= link_to "Créer un compte", new_user_registration_path, class:"btn btn-light me-3" %>

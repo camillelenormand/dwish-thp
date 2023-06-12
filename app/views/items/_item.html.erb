@@ -5,7 +5,7 @@
       <p class="card-text"><%= item.price %>€</p>
       <p class="card-text"><%= item.description %></p>
       <p class="card-text"><%= item.category.name %></p>
-      <%= render(ButtonComponent.new(label: "Ajouter au panier", url:  new_item_path(item), style: "dark", size: "md"))%>
+      <%= render(ButtonComponent.new(label: "Ajouter au panier", url:  cart_item_path(item: @item), style: "dark", size: "md"))%>
   </div>
 </div>
 

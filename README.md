@@ -31,9 +31,9 @@ Création d'une base de données Postgresql avec les tables suivantes
 
 - Users
 - Orders
-- Products
-- Checkouts
-- ...
+- Items
+- Carts
+- Cart Items
 
 ### Front
 
@@ -60,7 +60,8 @@ Création d'une base de données Postgresql avec les tables suivantes
 - Affichage des pages statiques existantes
 - Créer un compte utilisateur
 - Affichage du catalogue des produits
-- Panneau d'administration
+- Affichage et remplissage du panier
+- Valider son panier et payer en ligne
 
 ## Version 1
 

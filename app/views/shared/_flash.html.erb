@@ -1,7 +1,7 @@
   <% flash.each do |name, msg| %>
     <div data-controller="flash" role="alert" class="<%= class_for_flash(name)%>">
       <%= msg %>
-      <button type="button" data-action="flash#dismiss">Close</button>
+      <button type="button" data-action="click->flash#dismiss">Close</button>
     </div>
   <% end %>
 

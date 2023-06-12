@@ -1,25 +1,79 @@
-<nav class="navbar navbar-expand-lg bg-white">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white mb-5">
+  <!-- Container wrapper -->
   <div class="container-fluid">
+
     <a class="navbar-brand" href="/">
-      <img src="https://res.cloudinary.com/dhcqyjeip/image/upload/v1686220004/Dwish/logo_navbar_hg4azx.svg" alt="Dwish" width="120" height="20">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav mt-2">
-          <%= link_to "Commander", items_path, class:"nav-link text-black" %>          
-          <a class="nav-link text-black" href="/traiteur">Traiteur</a>
-          <a class="nav-link text-black" href="/a-propos">A propos</a>
+    <img 
+      src="https://res.cloudinary.com/dhcqyjeip/image/upload/v1686220004/Dwish/logo_navbar_hg4azx.svg" 
+      alt="Dwish" 
+      width="60" 
+      height="20">
+  </a>
+
+      <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+       <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left links -->
+      <div class="navbar-nav me-auto mb-2 mt-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Commander", items_path, class:"nav-link" %> 
+        </li>   
+        <li class="nav-item">      
+          <a class="nav-link" href="/traiteur">Traiteur</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/a-propos">A propos</a>
+        </li>
       </div>
-    </div>
-     <!-- Left links -->
+      <!-- Left links -->
+ 
+   <!-- Collapsible wrapper -->
 
+     <!-- Right elements -->
       <div class="d-flex align-items-center">
-        <%= link_to "Se connecter", new_user_session_path, class:"btn btn-dark px-3 me-2" %>
-        <button type="button" class="btn btn-light me-3">
-          S'inscrire
-        </button>
-
-  </div>
+        <% if user_signed_in? %>
+          <div class="dropdown">
+            <button class="btn btn-dark px-3 me-2 rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Mon compte
+            </button>
+              <div class="dropdown-menu">
+                <%= link_to "Profil", user_path(current_user), class:"dropdown-item" %>
+                <li><hr class="dropdown-divider"></li>
+                <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+          </div>
+          <%= render(CartButtonComponent.new(cart_size: @cart_size, icon: "fa fa-shopping-bag", url: root_path, style:"btn btn-outline-primary rounded-pill"))  %>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+            </div>
+          </div>
+        <% else %>
+          <%= button_to "Se connecter", new_user_session_path, class:"btn btn-dark px-3 me-2" %>
+          <%= link_to "Créer un compte", new_user_registration_path, class:"btn btn-light me-3" %>
+        <% end %>
+      </div>
+       <!-- Right elements -->
+      </div>
+    <!-- Collapsible wrapper -->
+    </div>
+  <!-- Container wrapper -->
  </nav>
+
 

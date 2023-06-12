@@ -1,14 +1,39 @@
+<style>
+h1 {
+  color: blue;}
+#itemsblock {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+    padding: 10px;
+  border: 1px solid #000;
+ }
+
+  </style>
 <p style="color: green"><%= notice %></p>
 
-<h1>Items</h1>
 
-<div id="items">
-  <% @items.each do |item| %>
-    <%= render item %>
-    <p>
-      <%= link_to "Show this item", item %>
-    </p>
-  <% end %>
-</div>
+<div class="container-fluid">
+<aside class="aside aside-2">Aside 2</aside>
+  <div class= "col-sm-7 text-center" >
+  <h1>bloc items</h1>
+    <div id="itemsblock">
+      <% @items.each do |item| %>
+      <div class= "col-sm-5 text-center" >
+        <div class="card"  >
+          <div class="card-body">
+            <%= render item %>
+              <p>
+              <button type="button" class="btn btn-info">Commander</button>
+            </p>
+          </div>
+        </div>
+        <!-- app/views/carts/show.html.erb -->
+      </div>
+      <% end %>
+    </div>
+     </div>
+ 
 
-<%= link_to "New item", new_item_path %>

@@ -9,11 +9,11 @@
 #   end
 #  category
 
-Category.delete_all
-Item.delete_all
-Order.delete_all
-Cart.delete_all
-User.delete_all
+#Category.delete_all
+#Item.delete_all
+#Order.delete_all
+#Cart.delete_all
+#User.delete_all
 
  Category.create!(name: "Dwish 🥪")        #id=1
  Category.create!(name: "Salades 🥬")       #id=2
@@ -71,4 +71,4 @@ User.delete_all
 
 
  #creation User
- User.create!(email: "test1@test.com", password: "test1@test.com")
+ User.create!(email: "test1@test.com", password: "test1@test.com", first_name:"test_fitsname" , last_name:"test_lastname", phone: "0103")

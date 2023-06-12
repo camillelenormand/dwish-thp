@@ -69,6 +69,9 @@
  Item.create!(name: "Bière Maïre (IPA)" ,description:"Brasserie Zoumai - Btl 33 cl" , price:4.50, quantity:1000 , category_id:5) 
  Item.create!(name: "Bière Gaby (blanche Combawa) " ,description:"Brasserie Zoumai - Btl 33 cl" , price:4.50, quantity:1000 , category_id:5) 
 
-
  #creation User
  User.create!(email: "test1@test.com", password: "test1@test.com", first_name:"test_fitsname" , last_name:"test_lastname", phone: "0103")
+
+ # Cart and CartItem creation
+ Cart.create!(user_id: 1, status: "in_progress")
+ CartItem.create!(cart_id: 1, item_id: 1, quantity: 1)

@@ -18,7 +18,7 @@ h1 {
 <div class="container-fluid">
 <aside class="aside aside-2">Aside 2</aside>
   <div class= "col-sm-7 text-center" >
-  <h1>bloc items</h1>
+  <h1>bloc items <%= current_user.email %> </h1>
     <div id="itemsblock">
       <% @items.each do |item| %>
       <div class= "col-sm-5 text-center" >

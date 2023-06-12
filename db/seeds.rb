@@ -11,6 +11,9 @@
 
 Category.delete_all
 Item.delete_all
+Order.delete_all
+Cart.delete_all
+User.delete_all
 
  Category.create!(name: "Dwish 🥪")        #id=1
  Category.create!(name: "Salades 🥬")       #id=2
@@ -65,3 +68,7 @@ Item.delete_all
  Item.create!(name: "Bière Tiboulen (blonde)" ,description:"Brasserie Zoumai - Btl 33 cl",  price:4.50, quantity:1000 , category_id:5)  
  Item.create!(name: "Bière Maïre (IPA)" ,description:"Brasserie Zoumai - Btl 33 cl" , price:4.50, quantity:1000 , category_id:5) 
  Item.create!(name: "Bière Gaby (blanche Combawa) " ,description:"Brasserie Zoumai - Btl 33 cl" , price:4.50, quantity:1000 , category_id:5) 
+
+
+ #creation User
+ User.create!(email: "test1@test.com", password: "test1@test.com")

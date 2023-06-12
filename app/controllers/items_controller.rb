@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
-
+  before_action :initialize_cart
+ 
   # GET /items or /items.json
   def index
     @items = Item.all
@@ -67,4 +68,22 @@ class ItemsController < ApplicationController
     def item_params
       params.fetch(:item, {})
     end
+
+    def initialize_cart
+      puts "current_user :#{current_user}"
+      puts "user_id: #{ @current_user.id}"
+      # @cart ||= Cart.find_by(id: session[:cart_id])
+    
+     # if @cart.nil?
+       @cart = Cart.create(user_id: @current_user.id, status: 0)
+        session[:cart_id] = @cart.id
+        puts " session[:cart_id]:   #{session[:cart_id]}"
+        
+     # end
+     
+
+      
+     
+    end 
+
 end

@@ -1,4 +1,6 @@
 <!-- Remove the container if you want to extend the Footer to full width. -->
+
+
 <div class="container my-5">
   <!-- Footer -->
   <footer
@@ -16,8 +18,8 @@
             <h6 class="text-uppercase mb-4 font-weight-bold">
               DWISH
             </h6>
-            <p>A l'origine de Dwish, il y a l'amour des bons produits et du bien manger. Alors on s'est lancé comme mission de redorer le blason de ce cher Lord Sandwich !</p>
-            <p> Tout simplement en proposant un vrai et bon sandwich; avec des produits frais, maison, et locaux.</p>
+            <p>
+              A l'origine de Dwish, il y a l'amour des bons produits et du bien manger. Alors on s'est lancé comme mission de redorer le blason de ce cher Lord Sandwich ! </p>
           </div>
           <!-- Grid column -->
 
@@ -25,18 +27,31 @@
 
           <!-- Grid column -->
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+            <h6 class="text-uppercase mb-4 font-weight-bold">Liens utiles</h6>
             <p>
-              <a class="text-dark">MDBootstrap</a>
+              <%= link_to'Contactez-nous', page_path('contact_us'), class: 'text-dark' %> 
             </p>
             <p>
-              <a class="text-dark">MDWordPress</a>
+              <%= link_to'Recrutement', page_path('recruitment'), class: 'text-dark' %> 
             </p>
             <p>
-              <a class="text-dark">BrandFlow</a>
+              <%= link_to'À propos', page_path('about_us'), class: 'text-dark' %> 
             </p>
             <p>
-              <a class="text-dark">Bootstrap Angular</a>
+              <%= link_to'Presse', page_path('media'), class: 'text-dark' %> 
+            </p>
+          </div>
+
+          <!-- Grid column -->
+
+                    <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Informations légales</h6>
+            <p>
+              <%= link_to'Politique de confidentialité', page_path('privacy_policy'), class: 'text-dark' %> 
+            </p>
+            <p>
+              <%= link_to'Conditions générales de vente', page_path('terms'), class: 'text-dark' %> 
             </p>
           </div>
           <!-- Grid column -->
@@ -45,35 +60,22 @@
 
           <!-- Grid column -->
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-            <h6 class="text-uppercase mb-4 font-weight-bold">
-              Useful links
-            </h6>
-            <p>
-              <a class="text-dark">Your Account</a>
-            </p>
-            <p>
-              <a class="text-dark">Become an Affiliate</a>
-            </p>
-            <p>
-              <a class="text-dark">Shipping Rates</a>
-            </p>
-            <p>
-              <a class="text-dark">Help</a>
-            </p>
-          </div>
-
-          <!-- Grid column -->
-          <hr class="w-100 clearfix d-md-none" />
-
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
             <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
             <p><i class="fas fa-home mr-3"></i>2 rue Edmond Rostand,</p>
             <p><i class="fas fa-print mr-3"></i>13006 MARSEILLE</p>
             <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
             <p><i class="fas fa-phone mr-3"></i>07 67 10 30 14</p>
           </div>
+
           <!-- Grid column -->
+                    <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Horaires</h6>
+            <p><i class="fas fa-home mr-3"></i>Lundi au vendredi : 11h30 - 15h30</p>
+            <p><i class="fas fa-envelope mr-3"></i>Fermé le week-end</p>
+          </div>
+          <!-- Grid column -->
+
         </div>
         <!--Grid row-->
       </section>
@@ -86,14 +88,15 @@
         <div class="row d-flex align-items-center">
           <!-- Grid column -->
           <div class="col-md-7 col-lg-8 text-center text-md-start">
-            <!-- Copyright -->
+            <!-- CGV -->
             <div class="p-3">
-              © 2020 Copyright:
-              <a class="text-dark" href="https://mdbootstrap.com/"
-                 >MDBootstrap.com</a
-                >
+              <%= link_to'CGV', page_path('cgv'), class: 'text-dark text-decoration-none' %> 
             </div>
-            <!-- Copyright -->
+             <div class="p-3">
+              <%= link_to'Cookies', page_path('cookies'), class: 'text-dark text-decoration-none' %> 
+            </div>
+            
+            <!-- CGV -->
           </div>
           <!-- Grid column -->
 

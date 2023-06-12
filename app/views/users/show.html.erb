@@ -1,0 +1,63 @@
+<% if user_signed_in? %>
+
+  <div class="container mt-5">
+    <div class="row my">
+      <div class="col-md-6">
+    
+        <h5>Informations personnelles</h5>
+        <ul class="list-group mt-5 mb-5">
+          <li class="list-group-item"><strong>First Name: </strong><%= @user.first_name %> </li>
+          <li class="list-group-item"><strong>Last Name: </strong><%= @user.last_name %> </li>
+          <li class="list-group-item"><strong> Email: </strong><%= @user.email %> </li>
+          <li class="list-group-item"><strong>Phone: </strong><%= @user.phone %> </li>
+        </ul>
+          <%= render(ButtonComponent.new(label: "Modifier mes informations personnels", url:  edit_user_registration_path(current_user), style: "dark", size: "md")) %>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <h5>Liste des commandes</h5>
+        <table class="table my-5">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Order Amount</th>
+              <th>Order Date</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>$100</td>
+              <td>2023-06-01</td>
+              <td><button class="btn btn-secondary">Voir</button></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>$200</td>
+              <td>2023-06-05</td>
+              <td><button class="btn btn-secondary">Voir</button></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>$150</td>
+              <td>2023-06-09</td>
+              <td><button class="btn btn-secondary">Voir</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Vous devez vous connecter pour voir vos informations</h2>
+      </div>
+    </div>
+  </div>
+<% end %>

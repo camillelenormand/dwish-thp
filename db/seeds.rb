@@ -70,8 +70,15 @@
  Item.create!(name: "Bière Gaby (blanche Combawa) " ,description:"Brasserie Zoumai - Btl 33 cl" , price:4.50, quantity:1000 , category_id:5) 
 
  #creation User
- User.create!(email: "test1@test.com", password: "test1@test.com", first_name:"test_fitsname" , last_name:"test_lastname", phone: "0103")
+ User.create!(email: "test1@test.com", password: "test1@test.com", first_name:"test2_fitsname" , last_name:"test2_lastname", phone: "01 34 23 41 00")
+ User.create!(email: "test2@test.com", password: "test2@test.com", first_name:"test2_fitsname" , last_name:"test2_lastname", phone: "01 34 23 41 01")
 
  # Cart and CartItem creation
  Cart.create!(user_id: 1, status: "in_progress")
- CartItem.create!(cart_id: 1, item_id: 1, quantity: 1)
+ CartItem.create!(cart_id: 1, item_id: 1, quantity: 1, price: 8.50)
+
+
+ Cart.create!(user_id: 2, status: "in_progress")
+ CartItem.create!(cart_id: 2, item_id: 2, quantity: 3, price: 9.50)
+ CartItem.create!(cart_id: 2, item_id: 1, quantity: 1, price: 9.50)
+

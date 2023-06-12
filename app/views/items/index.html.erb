@@ -18,7 +18,7 @@ h1 {
 <div class="container-fluid">
 <aside class="aside aside-2">Aside 2</aside>
   <div class= "col-sm-7 text-center" >
-  <h1>bloc items <%= current_user.email %> </h1>
+  <h1>bloc items <%= current_user.email %> panier <%= session[:cart_id] %>   </h1>
     <div id="itemsblock">
       <% @items.each do |item| %>
       <div class= "col-sm-5 text-center" >
@@ -26,7 +26,7 @@ h1 {
           <div class="card-body">
             <%= render item %>
               <p>
-              <button type="button" class="btn btn-info">Commander</button>
+              <p> <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class:"btn btn-info", method: :post ,data:{turbo:false} %></p>
             </p>
           </div>
         </div>

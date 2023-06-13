@@ -2,17 +2,12 @@
 
 <h1>Menu</h1>
 
-<div class="container-fluid text-center">
-  <% categories = ["Dwish 🥪", "Salades 🥬", "Boissons 🥤", "Desserts 🍪", "Accompagnements 🍟"] %>
-  
-  <% categories.each do |category| %>
-    <h3><%= category %></h3>
-    <div class="row row-cols-3">
-      <% @items.select { |item| item.category.name == category }.each do |item| %>
-        <div class="col">
-          <%= render item %>
-        </div>
+<div class="row row-cols-2 g-3">
+    <% categories = ["Dwish 🥪", "Salades 🥬", "Boissons 🥤", "Desserts 🍪", "Accompagnements 🍟"] %>
+      <% categories.each do |category| %>
+        <h3><%= category %></h3>
+          <% @items.select { |item| item.category.name == category }.each do |item| %>
+            <%= render item %>
+          <% end %>
       <% end %>
-    </div>
-  <% end %>
 </div>

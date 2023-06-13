@@ -5,7 +5,7 @@ class CartsController < ApplicationController
     end
 
     def create
-      @carts = Cart.new(user_id: @current_user.id, status: 0)
+      @cart = Cart.new(user_id: @current_user.id, status: 0)
       puts "user_id: #{ @current_user.id}"
       
       respond_to do |format|

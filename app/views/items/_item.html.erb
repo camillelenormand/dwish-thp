@@ -8,6 +8,29 @@
       <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class:"btn btn-info", method: :post ,data:{turbo:false} %>  </div>
 </div>
 
+<div class="col">
+  <div id="<%= dom_id item %>" class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <img
+          src="https://res.cloudinary.com/dhcqyjeip/image/upload/v1686227071/beefton_jtjpni.jpg"
+          alt="Beef"
+          class="img-fluid rounded-start"
+          height="auto"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><strong><%= item.name %></strong></h5>
+          <p class="card-text"><%= item.price %>€</p>
+          <p class="card-text"><%= item.description %></p>
+          <p class="card-text"><%= item.category.name %></p>
+          <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class:"btn btn-info", method: :post ,data:{turbo:false} %>  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-
+    

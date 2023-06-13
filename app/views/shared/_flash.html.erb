@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
   <% flash.each do |name, msg| %>
     <div data-controller="flash" role="alert" class="<%= class_for_flash(name)%>">
       <%= msg %>
@@ -5,3 +6,10 @@
     </div>
   <% end %>
 
+=======
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+>>>>>>> Stashed changes

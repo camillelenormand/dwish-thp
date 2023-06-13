@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if current_user.update(user_params)
-        format.html { redirect_to root_path, notice: "Votre profil a bien été mis à jour." }
+        format.html { redirect_to root_path, flash:[notice] = "Votre profil a bien été mis à jour." }
       else
         format.html { render :edit, alert: "Votre profil n'a pas pu être mis à jour. Merci de réessayer." }
       end

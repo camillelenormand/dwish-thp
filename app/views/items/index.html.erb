@@ -5,8 +5,16 @@
       <% categories.each do |category| %>
         <h3><%= category %></h3>
           <% @items.select { |item| item.category.name == category }.each do |item| %>
-            <div class="row row-cols-2 g-3">
-              <%= render item %>
+            <div class="row row-cols-3 g-3 mb-3">
+              <div class="col-md-2">
+                <%= render partial: 'items/image' %>
+              </div>
+              <div class="col-md-4">
+                <%= render item %>
+              </div>
+              <div class="col-md-4">
+                <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %>
+              </div>
             </div>
           <% end %>
       <% end %>

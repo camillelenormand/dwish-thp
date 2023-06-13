@@ -77,9 +77,9 @@ class ItemsController < ApplicationController
     
      if @cart.nil?
        @cart = Cart.create(user_id: @current_user.id, status: 0)
-       puts "creation nouveau panier "
+       puts "cart: #{@cart}"
        session[:cart_id] = @cart.id
-       puts "session[:cart_id]:   #{session[:cart_id]}"
+       puts "session: #{session[:cart_id]}"
      end 
 
 end

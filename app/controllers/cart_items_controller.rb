@@ -13,7 +13,8 @@ class CartItemsController < ApplicationController
     puts "item_id: #{ @item.id}"
     puts "quantity: #{quantity}"
     puts "price: #{@item.price}"
-    @CartItem = CartItem.new(cart_id: session[:cart_id], item_id:@item.id, quantity:1, price:@item.price )
+    
+    @CartItem = CartItem.new(cart_id: session[:cart_id], item_id:@item.id, quantity: 1, price: @item.price )
 
     
     respond_to do |format|

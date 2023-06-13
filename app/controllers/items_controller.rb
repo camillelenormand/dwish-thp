@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
  
   # GET /items or /items.json
   def index
-    @items = Item.all.order(:name)
+    @items = Item.all
   end
 
   # GET /items/1 or /items/1.json
@@ -59,15 +59,31 @@ class ItemsController < ApplicationController
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_item
+      @item = Item.find(params[:id])
+    end
 
-  def set_item
-    @item = Item.find(params[:id])
-  end
-  
+    # Only allow a list of trusted parameters through.
+    def item_params
+      params.fetch(:item, {})
+    end
 
-  # Only allow a list of trusted parameters through.
-  def item_params
-    params.require(:item).permit(:name, :price, :description, :image_url, :category_id)
-  end
+    def initialize_cart
+      puts "current_user :#{current_user}"
+      puts "user_id: #{ @current_user.id}"
+      # @cart ||= Cart.find_by(id: session[:cart_id])
+    
+     # if @cart.nil?
+       @cart = Cart.create(user_id: @current_user.id, status: 0)
+        session[:cart_id] = @cart.id
+        puts " session[:cart_id]:   #{session[:cart_id]}"
+        
+     # end
+     
+
+      
+     
+    end 
 
 end

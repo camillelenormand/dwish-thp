@@ -3,6 +3,17 @@ class CartItemsController < ApplicationController
     @CartItems = CartItems.all
   end
 
+  def new
+  end
+
+  def show
+
+  end
+
+  def count
+    @cart_size = CartItem.where(cart_id: session[:cart_id]).count
+  end
+
   def create
     p params
     puts params[:item_id].to_i

@@ -1,19 +1,28 @@
 <p style="color: green"><%= notice %></p>
 
-<div>
-<%= render partial: "cart_items/cart_items_summary" %>
-</div>
-<h1>Menu</h1>
-<div class="container-fluid text-center">
-  <% categories = ["Dwish 🥪", "Salades 🥬", "Boissons 🥤", "Desserts 🍪", "Accompagnements 🍟"] %>
-  <% categories.each do |category| %>
-    <h3><%= category %></h3>
-    <div class="row row-cols-3">
-      <% @items.select { |item| item.category.name == category }.each do |item| %>
-        <div class="col">
-          <%= render item %>
+
+
+  <div class="justify-content-sm-center mx-2">
+    <h1>Menu</h1>
+  </div>
+    <% categories = ["Dwish 🥪", "Salades 🥬", "Boissons 🥤", "Desserts 🍪", "Accompagnements 🍟"] %>
+      <% categories.each do |category| %>
+        <div class="justify-content-sm-center mx-2">
+          <h3><%= category %></h3>
+
         </div>
+          <% @items.select { |item| item.category.name == category }.each do |item| %>
+            <div class="row row-cols-1 row-cols-md-4 row-cols-md-2 g-3 mb-3">
+              <div class="col-md-4">
+                <%= render partial: 'items/image' %>
+              </div>
+              <div class="col-md-4">
+                <%= render item %>
+                  <div class="p-2">
+                    <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
+                  </div>
+              </div>
+            </div>
+          <% end %>
       <% end %>
-    </div>
-  <% end %>
 </div>

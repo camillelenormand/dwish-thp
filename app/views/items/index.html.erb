@@ -1,7 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
+<div>
+<%= render partial: "cart_items/cart_items_summary" %>
+</div>
 <h1>Menu</h1>
-
 <div class="container-fluid text-center">
   <% categories = ["Dwish 🥪", "Salades 🥬", "Boissons 🥤", "Desserts 🍪", "Accompagnements 🍟"] %>
   <% categories.each do |category| %>

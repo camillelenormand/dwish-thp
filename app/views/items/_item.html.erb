@@ -5,7 +5,8 @@
       <p class="card-text"><%= item.price %>€</p>
       <p class="card-text"><%= item.description %></p>
       <p class="card-text"><%= item.category.name %></p>
-      <%= render(ButtonComponent.new(label: "Ajouter au panier", url:  new_item_path(item), style: "dark", size: "md"))%>
+      <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class:"btn btn-info", method: :post ,data:{turbo:false} %>
+     
   </div>
 </div>
 

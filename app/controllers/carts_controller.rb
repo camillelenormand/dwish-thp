@@ -7,7 +7,6 @@ class CartsController < ApplicationController
     def create
       @cart = Cart.new(user_id: @current_user.id, status: 0)
       puts "user_id: #{ @current_user.id}"
-      
       respond_to do |format|
         if @cart.save
           format.html { redirect_to item_url(@cart), notice: "Item was successfully created." }

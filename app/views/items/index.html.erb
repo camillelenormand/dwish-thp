@@ -1,39 +1,17 @@
-<style>
-h1 {
-  color: blue;}
-#itemsblock {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
-    padding: 10px;
-  border: 1px solid #000;
- }
-
-  </style>
 <p style="color: green"><%= notice %></p>
 
+<h1>Menu</h1>
 
-<div class="container-fluid">
-<aside class="aside aside-2">Aside 2</aside>
-  <div class= "col-sm-7 text-center" >
-  <h1>bloc items <%= current_user.email %> panier <%= session[:cart_id] %>   </h1>
-    <div id="itemsblock">
-      <% @items.each do |item| %>
-      <div class= "col-sm-5 text-center" >
-        <div class="card"  >
-          <div class="card-body">
-            <%= render item %>
-              <p>
-              <p> <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class:"btn btn-info", method: :post ,data:{turbo:false} %></p>
-            </p>
-          </div>
+<div class="container-fluid text-center">
+  <% categories = ["Dwish 🥪", "Salades 🥬", "Boissons 🥤", "Desserts 🍪", "Accompagnements 🍟"] %>
+  <% categories.each do |category| %>
+    <h3><%= category %></h3>
+    <div class="row row-cols-3">
+      <% @items.select { |item| item.category.name == category }.each do |item| %>
+        <div class="col">
+          <%= render item %>
         </div>
-        <!-- app/views/carts/show.html.erb -->
-      </div>
       <% end %>
     </div>
-     </div>
- 
-
+  <% end %>
+</div>

@@ -1,5 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
+
+
   <div class="justify-content-sm-center mx-2">
     <h1>Menu</h1>
   </div>
@@ -7,6 +9,7 @@
       <% categories.each do |category| %>
         <div class="justify-content-sm-center mx-2">
           <h3><%= category %></h3>
+
         </div>
           <% @items.select { |item| item.category.name == category }.each do |item| %>
             <div class="row row-cols-1 row-cols-md-4 row-cols-md-2 g-3 mb-3">

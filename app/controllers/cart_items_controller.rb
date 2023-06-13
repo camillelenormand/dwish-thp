@@ -24,19 +24,22 @@ class CartItemsController < ApplicationController
     puts "item_id: #{ @item.id}"
     puts "quantity: #{quantity}"
     puts "price: #{@item.price}"
-    
-    @CartItem = CartItem.new(cart_id: session[:cart_id], item_id:@item.id, quantity: 1, price: @item.price )
 
     
+    @CartItem = CartItem.new(cart_id: session[:cart_id], item_id: @item.id, quantity: 1, price: @item.price )
+
+
     respond_to do |format|
-      if @CartItem.save
-        format.html { redirect_to item_url(@item), notice: "Item was successfully created." }
-        format.json { render :show, status: :created, location: @item }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: cart.errors, status: :unprocessable_entity }
-      end
+    if @CartItem.save
+    
+      format.html { redirect_to items_path , notice: "Article #{@item.name} ajouté au panier" }
+
+      #format.json { render :show, status: :created, location: @item }
+        else
+      format.html { render :new, status: :unprocessable_entity }
+      #format.json { render json: cart.errors, status: :unprocessable_entity }
     end
+   end
   end
 
 

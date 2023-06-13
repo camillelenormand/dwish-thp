@@ -1,13 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Menu</h1>
-
-<div class="row row-cols-2 g-3">
     <% categories = ["Dwish 🥪", "Salades 🥬", "Boissons 🥤", "Desserts 🍪", "Accompagnements 🍟"] %>
       <% categories.each do |category| %>
         <h3><%= category %></h3>
           <% @items.select { |item| item.category.name == category }.each do |item| %>
-            <%= render item %>
+            <div class="row row-cols-2 g-3">
+              <%= render item %>
+            </div>
           <% end %>
       <% end %>
 </div>

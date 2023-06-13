@@ -1,7 +1,5 @@
-  <% flash.each do |name, msg| %>
-    <div data-controller="flash" role="alert" class="<%= class_for_flash(name)%>">
-      <%= msg %>
-      <button type="button" data-action="click->flash#dismiss"></button>
-    </div>
-  <% end %>
-
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>

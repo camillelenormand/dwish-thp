@@ -1,4 +1,5 @@
 class CartItemsController < ApplicationController
+
   def index
     @CartItems = CartItems.all
   end
@@ -7,12 +8,14 @@ class CartItemsController < ApplicationController
   end
 
   def show
-
+ 
   end
 
   def count
     @cart_size = CartItem.where(cart_id: session[:cart_id]).count
   end
+
+
 
   def create
     p params
@@ -30,17 +33,18 @@ class CartItemsController < ApplicationController
 
 
     respond_to do |format|
-    if @CartItem.save
-    
-      format.html { redirect_to items_path , notice: "Article #{@item.name} ajouté au panier" }
-
-      #format.json { render :show, status: :created, location: @item }
+      if @CartItem.save
+        format.html { redirect_to items_path , notice: "Article #{@item.name} ajouté au panier" }
+        #format.json { render :show, status: :created, location: @item }
         else
-      format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
       #format.json { render json: cart.errors, status: :unprocessable_entity }
-    end
-   end
+      end
+    end 
   end
+private
+
+
 
 
 

@@ -9,8 +9,8 @@
 #   end
 #  category
 
-#Category.delete_all
-#Item.delete_all
+Category.delete_all
+Item.delete_all
 #Order.delete_all
 #Cart.delete_all
 #User.delete_all

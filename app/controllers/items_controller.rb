@@ -1,7 +1,10 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :initialize_cart
+  helper_method :generate_cart_total_amount
  
+
+
   # GET /items or /items.json
   def index
     @categories = Category.all
@@ -60,6 +63,19 @@ class ItemsController < ApplicationController
   end
 
   private
+
+ 
+    def generate_cart_total_amount
+      content=@cart.cart_items
+      total_amount=0
+      content.each do |an_item| 
+      total_amount=total_amount+( an_item.price*an_item.quantity)
+      end
+      puts "total_amount: #{total_amount} € #{@cart.id}" 
+      total_amount
+    end
+   
+
     # Use callbacks to share common setup or constraints between actions.
     def set_item
       @item = Item.find(params[:id])
@@ -69,6 +85,8 @@ class ItemsController < ApplicationController
     def item_params
       params.fetch(:item, {})
     end
+
+
 
     def initialize_cart
       puts "current_user :#{current_user}"
@@ -82,6 +100,10 @@ class ItemsController < ApplicationController
        session[:cart_id] = @cart.id
        puts "session: #{session[:cart_id]}"
      end 
+    end
+  end
 
-end
-end 
+
+
+
+

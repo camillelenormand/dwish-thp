@@ -5,4 +5,8 @@ class CartItem < ApplicationRecord
 
   belongs_to :cart
   belongs_to :item
+
+  def find_item_name
+    item_name=(Item.find_by_id (self.item_id)).name
+  end 
 end

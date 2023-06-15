@@ -1,0 +1,14 @@
+<div>
+<h6>Votre panier</>
+
+  <div>
+  <p>panier: <%= @cart.id %> client: <%= current_user.email %> </p>
+  <p>nombre d'articles: <%= @cart.cart_items.count %></p>
+  <p>total du panier: <%=  generate_cart_total_amount %>€ </p>
+  
+  <% @cart.cart_items.each do |cart_item| %>
+    <p> <%=cart_item.find_item_name %> <%=cart_item.price %>€ quantité: <%=cart_item.quantity %> </p>
+    <% end%>
+
+</div>
+</div>

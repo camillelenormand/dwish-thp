@@ -1,0 +1,49 @@
+<div class="position-relative vh-90 bg-body-secondary">
+  <div class="container p-5">
+    <h4 class="text-center mb-4">Nous ne recrutons pas activement pour le moment. Néanmoins, n'hésitez pas à nous laisser votre CV.</h4>
+
+    <form action="#" method="post" class="row">
+      <div class="col-md-6">
+        <div class="form-group mb-4">
+          <label for="prenom">Prénom :</label>
+          <input type="text" class="form-control" id="prenom" name="prenom" required>
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="nom">Nom :</label>
+          <input type="text" class="form-control" id="nom" name="nom" required>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group mb-4">
+          <label for="email">Adresse mail :</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="telephone">Numéro de téléphone :</label>
+          <input type="tel" class="form-control" id="telephone" name="telephone" required>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group mb-4">
+          <label for="lettreMotivation">Lettre de motivation :</label>
+          <textarea class="form-control" id="lettreMotivation" name="lettreMotivation" rows="5" required></textarea>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group mb-4">
+          <label for="cv">CV (PDF) :</label>
+          <input type="file" class="form-control-file" id="cv" name="cv" accept=".pdf" required>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-outline-dark mt-3">Envoyer la candidature</button>
+      </div>
+    </form>
+  </div>
+</div>

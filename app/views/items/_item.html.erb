@@ -1,13 +1,19 @@
-<div id="<%= dom_id item %>">
-  <%= item.image_url %>
-      <img 
-        class="img-fluid" 
-        src="https://v2cdn1.centralappstatic.com/image/clip/700x525_gallery_c40dce14a6ee4b46930cfbe652bcd2f5.jpeg" 
-        alt="miam"> 
-        
-        <p><strong><%= item.name %></strong></p>
-        <p><%= item.description %></p>
-        <p><%= item.price %> €</p>
-</div>
+  <div id="<%= dom_id item %>" style="max-width: 540px;">
+    <div class="card-body">
 
+      <h5 class="card-title p-2"><strong><%= item.name %></strong></h5>
+      
+      <div class="row">
+        <div class="col">
+          <p class="card-text p-2 lh-lg"><%= item.description %></p>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col">
+          <p class="card-text p-2"><strong><%= item.price %>€</strong></p>
+        </div>
+      </div>
+    </div>
+
+  </div>

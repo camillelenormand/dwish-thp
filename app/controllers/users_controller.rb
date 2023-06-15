@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:edit, :update, :create, :new]
 
   def index
     @users = User.all
@@ -38,7 +38,12 @@ class UsersController < ApplicationController
       :email, 
       :first_name, 
       :last_name, 
-      :phone)
+      :phone,
+      :password,
+      :password_confirmation
+    )
   end
+
+
 
 end

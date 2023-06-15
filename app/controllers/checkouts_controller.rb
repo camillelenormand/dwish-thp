@@ -3,9 +3,11 @@ class CheckoutsController < ApplicationController
 
   include PaygreenService
 
-  def create(total_price, first_name, last_name, email)
+  def create
+    @user = current_user
+    @cart = Cart.find(params[:cart_id])
     # Create payment order
-    response = PaygreenService.create_payment_order(total_price, first_name, last_name, email)
+    response = PaygreenService.create_payment_order(@cart.amount, @user.first_name, @user.last_name, @user.email)
     # Check if payment order was created
     if response[:hosted_payment_url] && response[:payment_order_id]
       # Update cart with payment order id
@@ -13,14 +15,15 @@ class CheckoutsController < ApplicationController
       # Redirect to payment page
       redirect_to response[:hosted_payment_url], notice: "Vous allez être redirigé vers la page de paiement"
     else
-      redirect_to root_path, alert: "Une erreur est survenue"
+      redirect_to cart_path(@cart), alert: "Une erreur est survenue, veuillez réessayer."
     end
 
   end
 
   def success
+    @cart = Cart.find(params[:cart_id])
     # Get payment order id from params
-    payment_order_id = params[:payment_order_id]
+    payment_order_id = @cart.payment_order_id
     token = PaygreenService.authenticate
     payment_order = PaygreenService.get_payment_order(payment_order_id, token)
     

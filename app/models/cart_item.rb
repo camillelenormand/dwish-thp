@@ -9,4 +9,10 @@ class CartItem < ApplicationRecord
   def find_item_name
     item_name=(Item.find_by_id (self.item_id)).name
   end 
+
+  def display_price(id)
+    Item.find_by_id(id.to_i).name
+    pp Item.find_by_id(id.to_i).name
+   end 
+
 end

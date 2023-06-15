@@ -62,6 +62,9 @@ class ItemsController < ApplicationController
     end
   end
 
+
+
+
   private
 
  
@@ -85,6 +88,7 @@ class ItemsController < ApplicationController
     def item_params
       params.fetch(:item, {})
     end
+   
 
 
 

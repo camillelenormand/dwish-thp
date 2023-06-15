@@ -14,6 +14,8 @@ class Item < ApplicationRecord
   # with: %r{\.(gif|jpg|png)\Z}i,
  # }
 
+
+
   private
 
   def not_referenced_by_any_cart_item

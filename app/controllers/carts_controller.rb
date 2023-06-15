@@ -1,7 +1,14 @@
 class CartsController < ApplicationController
-
+  helper_method :display_name
+  helper_method :generate_cart_total_amount
     def index
       @carts = Cart.all
+    end
+
+    def show
+      @cart = Cart.find_by_id(params[:id])
+      
+      
     end
 
     def create
@@ -18,6 +25,23 @@ class CartsController < ApplicationController
       end
     end
  
+
+def display_name(id)
+  Item.find_by_id(id.to_i).name
+end 
+
+ private   
+
+ def generate_cart_total_amount
+  content=@cart.cart_items
+  total_amount=0
+  content.each do |an_item| 
+  total_amount=total_amount+( an_item.price*an_item.quantity)
+  end
+  puts "total_amount: #{total_amount} € #{@cart.id}" 
+  total_amount
+end
+
 
 
 end

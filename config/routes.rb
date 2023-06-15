@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   resources :cart_items
   resources :carts
   resources :items
+
   resources :categories
   resources :users, only: [:index, :show, :edit, :update]
+
 
   scope '/checkout' do
     get 'create', to: 'checkouts#create', as: 'checkout_create'

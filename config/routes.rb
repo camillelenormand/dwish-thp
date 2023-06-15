@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :cart_items
   resources :carts
- resources :items
+  resources :items
 
   # Nested routes
   resources :categories do

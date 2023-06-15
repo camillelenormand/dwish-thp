@@ -85,4 +85,4 @@ Item.delete_all
 
  # Order creation
 
- Order.create!(user_id: 1, status: "in_progress", amount: 8.50, cart_id: 1)
+ Order.create!(user_id: 2, status: "paid", amount: 19.00, cart_id: 1)

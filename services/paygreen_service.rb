@@ -3,7 +3,7 @@ require 'net/http'
 require 'openssl'
 require 'json'
 
-class PaygreenService
+module PaygreenService
   API_BASE_URL = 'https://sb-api.paygreen.fr'.freeze
 
   def self.authenticate

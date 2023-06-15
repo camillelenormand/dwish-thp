@@ -9,4 +9,13 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Bienvenue chez Dwish !')
   end
 
+  def confirm_order_email(user)
+    user_id = user.id
+
+    url = f"https://dwish-staging.herokuapp.com/users/#{user_id}"
+    return url
+
+    mail(to: @user.email, subject: 'Confirmation de votre commande')
+  end
+
 end

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :edit, :update]
 
   scope '/checkout' do
-    get 'create', to: 'checkouts#create', as: 'checkout_create'
+    post 'create', to: 'checkouts#create', as: 'checkout_create'
     get 'success', to: 'checkouts#success', as: 'checkout_success'
     get 'cancel', to: 'checkouts#cancel', as: 'checkout_cancel'
     get 'error', to: 'checkouts#error', as: 'checkout_error'

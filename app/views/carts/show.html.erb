@@ -33,6 +33,6 @@
   <% end %>
 
   <%# Display delete cart button %>
-  <%= button_to "Passer commande", checkout_create_path(total_amount:), class: "btn btn-primary", :method :post, data: { turbo: false } %>
+  <%= button_to "Passer commande", checkout_create_path, data: { turbo: false } %>
   <%= button_to "Supprimer le panier", @cart, method: :delete %>
 </div>

@@ -4,7 +4,7 @@ class CheckoutsController < ApplicationController
 
   def create
     @user = current_user
-    @cart = Cart.find(params[:cart_id])
+
     new_payment_order = PaygreenService.create_payment_order(@cart.amount, @user.first_name, @user.last_name, @user.email)
     
     if new_payment_order[:hosted_payment_url] && new_payment_order[:payment_order_id]

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get 'create', to: 'checkouts#create', as: 'checkout_create'
     get 'success', to: 'checkouts#success', as: 'checkout_success'
     get 'cancel', to: 'checkouts#cancel', as: 'checkout_cancel'
+    get 'error', to: 'checkouts#error', as: 'checkout_error'
+    get 'expired', to: 'checkouts#expired', as: 'checkout_expired'
   end
 
   root 'welcome#index'

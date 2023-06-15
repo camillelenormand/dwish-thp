@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_06_12_104008) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_order_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 

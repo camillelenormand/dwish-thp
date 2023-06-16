@@ -1,16 +1,21 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   resources :cart_items
   resources :carts
   resources :items
 
-  # Nested routes
-  resources :categories do
-    resources :items
-  end
-
-  devise_for :users
-
+  resources :categories
   resources :users, only: [:index, :show, :edit, :update]
+
+
+  scope '/checkout' do
+    get 'create', to: 'checkouts#create', as: 'checkout_create'
+    get 'success', to: 'checkouts#success', as: 'checkout_success'
+    get 'cancel', to: 'checkouts#cancel', as: 'checkout_cancel'
+    get 'error', to: 'checkouts#error', as: 'checkout_error'
+    get 'expired', to: 'checkouts#expired', as: 'checkout_expired'
+  end
 
   root 'welcome#index'
 end

@@ -11,7 +11,7 @@ class CheckoutsController < ApplicationController
     @user = current_user
     @cart_items = CartItem.where(cart_id: @cart.id)
     
-    new_payment_order = PaygreenService.create_payment_order(@cart.total_amount, @user.first_name, @user.last_name, @user.email)
+    new_payment_order = PaygreenService.create_payment_order(@cart.total_amount.to_i, @user.first_name, @user.last_name, @user.email)
     
     if new_payment_order[:hosted_payment_url] && new_payment_order[:payment_order_id]
       @cart.update(payment_order_id: new_payment_order[:payment_order_id], status: "in_progress")
@@ -28,8 +28,9 @@ class CheckoutsController < ApplicationController
     payment_order = PaygreenService.get_payment_order(payment_order_id, token)
     
     if payment_order[:transaction_status] == 'transaction.successed'
-      @cart.update(status: "paid")
-      redirect_to checkout_success_path, notice: "Your order has been successfully validated"
+      # @cart.destroy!
+      # redirect_to checkout_success_path, notice: "Your order has been successfully validated"
+      @order = Order.create!(user_id: current_user.id, status: "paid", total_amount: payment_order[:amount], payment_order_id: payment_order_id)
     end
   end
 

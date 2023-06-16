@@ -63,8 +63,6 @@ class ItemsController < ApplicationController
   end
 
 
-
-
   private
 
  

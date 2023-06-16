@@ -11,9 +11,6 @@ module ApplicationHelper
     return total
   end
 
-end
-
-
   def navbar_cart_path
     @cart=Cart.find_by(user_id: current_user.id)
     
@@ -26,9 +23,10 @@ end
         my_cart_path=cart_path(@cart&.id)
       else
         my_cart_path=items_path
-   end
-   my_cart_path  
+      end
+      my_cart_path  
   
   end
 
+end
 

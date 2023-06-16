@@ -30,7 +30,6 @@ class Cart < ApplicationRecord
     pp self.cart_items.find_by(item_id: id).price
   end
 
-
   def total_amount
     cart_items.to_a.sum { |item| item.total_price }
   end

@@ -25,7 +25,7 @@ class CartItemsController < ApplicationController
 
     respond_to do |format|
       if @cart_item.save
-        format.html { redirect_to cart_path(@cart) , notice: "Article #{@item.name} ajouté au panier" }
+        format.html { redirect_to cart_path(@cart) , notice: "Article #{@item.name} ajouté au panier." }
         #format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,6 +33,25 @@ class CartItemsController < ApplicationController
       end
     end 
   end
+
+    # DELETE /cart_items/1 or /items/1.json
+    def destroy
+      puts "test destroy"
+      @cart = Cart.find(session[:cart_id])
+      @item = Item.find(params[:item_id])
+      @cart_item=CartItem.where(cart_id: @cart,item_id: @item).last
+      pp @cart_item
+      puts "@cart_item.id: #{@cart_item.id}"
+      @cart_item.delete
+  
+      respond_to do |format|
+        format.html { redirect_to cart_path(@cart), notice: "Article #{@item.name} supprimé du panier." }
+        format.json { head :no_content }
+      end
+    end
+
+
+
 
   def initialize_cart
     puts "initialize carte"

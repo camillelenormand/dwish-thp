@@ -1,64 +1,40 @@
-<p style="color: green"><%= notice %></p>
-
-
-
 <div class="justify-content-sm-center mx-2">
   <div>
-  <h6>Votre panier: <%= generate_cart_total_amount %>€     Nbre d'articles: <%= @cart.cart_items_number %></h6>
-  <h6>Numero Panier: <%= @cart.id %>     client: <%= current_user.email %></h6>
-
+    <%# Display cart details %>
+    <h6>Your cart: <%= generate_cart_total_amount %>€ Number of items: <%= @cart.cart_items_number %></h6>
+    <h6>Cart Number: <%= @cart.id %> Customer: <%= current_user.email %></h6>
   </div>
 
-          <% @cart.cart_hash.each do |key, qty| %>
-            <div class="row g-3 mb-3 align-items-center">
-              <div class="col-sm-1 ">
-               <%= render partial: 'items/image' %>
-              </div>
-              <div class="col-sm-2 ">
-                <%= display_name(key) %>
-              </div>
-              <div class="col-sm-2">
-              Prix:<%=  @cart.find_cart_items_price(key) %> 
-              </div>
-              <div class="col-sm-2">
-               Quantité: <%= qty.to_i %>
-              </div>
-              <div class="col-sm-2">
-              Total: <%= @cart.find_cart_items_price(key)*qty %> €
-             </div>
-              <div class="col-sm-1">
-                <%= button_to "+", cart_items_path(item_id: key), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
-              </div>
-              <div class="col-sm-1">
-                <%= button_to "-", cart_items_path(item_id: key), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
-              </div>
+  <%# Display cart items %>
+  <% @cart_items.each do | item | %>
+    <div class="row g-3 mb-3 align-items-center">
+      <div class="col-sm-1 ">
+        <%= render partial: 'items/image' %>
+      </div>
+      <div class="col-sm-2 ">
+        <%= item.name %>
+      </div>
+      <div class="col-sm-2">
+        Price:<%= item.price %> 
+      </div>
+      <div class="col-sm-2">
+        Quantity: <%= item.quantity %>
+      </div>
+      <div class="col-sm-1">
+        <%= button_to "+", cart_items_path(item_id: item.id), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
+      </div>
+      <div class="col-sm-1">
+        <%= button_to "-", cart_items_path(item_id: item.id), class: "btn btn-info btn-block", method: :delete, data: { turbo: false } %> 
+      </div>
+    </div>
 
-            </div>
-          <% end %>
-      
+    <% end %>
 
-</div>
+    <div class="col-sm-2">
+      Total: <%= @cart.total_amount %> €
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <%= button_to "Suppimer le panier", @cart, method: :delete %>
+  <%# Display delete cart button %>
+  <%= button_to "Place Order", checkout_create_path, data: { turbo: false } %>
+  <%= button_to "Delete Cart", @cart, method: :delete %>
 </div>

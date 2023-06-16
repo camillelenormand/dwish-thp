@@ -1,8 +1,10 @@
 class CartItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :initialize_cart
+  
   def index
-    @CartItems = CartItems.all
+    @cart = Cart.find(session[:cart_id])
+    @cart_items = CartItems.all
   end
 
   def new
@@ -16,34 +18,21 @@ class CartItemsController < ApplicationController
     @cart_size = CartItem.where(cart_id: session[:cart_id]).count
   end
 
-
-
   def create
-    p params
-    puts params[:item_id].to_i
-    @item = Item.find(params[:item_id].to_i)
-    quantity=1
-    
-    puts "cart_id: #{ session[:cart_id]}"
-    puts "item_id: #{ @item.id}"
-    puts "quantity: #{quantity}"
-    puts "price: #{@item.price}"
-
-    
-    @CartItem = CartItem.new(cart_id: session[:cart_id], item_id: @item.id, quantity: 1, price: @item.price )
-
+    @cart = Cart.find(session[:cart_id])
+    @item = Item.find(params[:item_id])
+    @cart_item = CartItem.new(cart_id: @cart.id, item_id: @item.id, quantity: 1, price: @item.price, name: @item.name )
 
     respond_to do |format|
-      if @CartItem.save
-        format.html { redirect_to items_path , notice: "Article #{@item.name} ajouté au panier" }
+      if @cart_item.save
+        format.html { redirect_to cart_path(@cart) , notice: "Article #{@item.name} ajouté au panier" }
         #format.json { render :show, status: :created, location: @item }
-        else
+      else
         format.html { render :new, status: :unprocessable_entity }
-      #format.json { render json: cart.errors, status: :unprocessable_entity }
+        #format.json { render json: cart.errors, status: :unprocessable_entity }
       end
     end 
   end
-
 
   def initialize_cart
     puts "initialize carte"
@@ -60,8 +49,5 @@ class CartItemsController < ApplicationController
      puts "session: #{session[:cart_id]}"
    end 
   end
-
-
-
 
 end

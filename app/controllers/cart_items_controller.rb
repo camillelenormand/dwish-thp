@@ -40,7 +40,6 @@ class CartItemsController < ApplicationController
       @cart = Cart.find(session[:cart_id])
       @item = Item.find(params[:item_id])
       @cart_item=CartItem.where(cart_id: @cart,item_id: @item).last
-      puts "objet @cart_item:  CartItem.where(cart_id: 1,item_id: 1).last"
       pp @cart_item
       puts "@cart_item.id: #{@cart_item.id}"
       @cart_item.delete

@@ -6,9 +6,16 @@ module ApplicationHelper
   end
 
   def cart_size
-    @cart_items = CartItem.where(cart_id: navbar_cart_id)
-    total = @cart_items.sum(:quantity)
-    return total
+  #  @cart_items = CartItem.where(cart_id: navbar_cart_id)
+  #  total = @cart_items.sum(:quantity)
+  # return total
+    if @cart.present? 
+      @cart_items = CartItem.where(cart_id: navbar_cart_id)
+      total = @cart_items.sum(:quantity)
+    else 
+      total=0
+    end
+    total
   end
 
   def navbar_cart_path

@@ -6,30 +6,32 @@
   </div>
 
   <%# Display cart items %>
-  <% @cart_items.group_by(&:item_name).each do | name, items| %>
+  <% @cart.cart_hash.each do |key, qty| %>
     <div class="row g-3 mb-3 align-items-center">
       <div class="col-sm-1 ">
-        <%= render partial: 'items/image' %>
+       <%= render partial: 'items/image' %>
       </div>
       <div class="col-sm-2 ">
-        <%= items.first.item.name %>
+        <%= display_name(key) %>
       </div>
       <div class="col-sm-2">
-        Price:<%= items.first.price  %> 
+      Prix:<%=  @cart.find_cart_items_price(key) %> 
       </div>
       <div class="col-sm-2">
-        Quantity: <%= items.sum(&:quantity) %>
+       Quantité: <%= qty.to_i %>
+      </div>
+      <div class="col-sm-2">
+      Total: <%= @cart.find_cart_items_price(key)*qty %> €
+     </div>
+      <div class="col-sm-1">
+        <%= button_to "+", cart_items_path(item_id: key), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
       </div>
       <div class="col-sm-1">
-        <%= button_to "+", cart_items_path(item_id: items.first.id), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
+        <%= button_to "-", cart_items_path(item_id: key), class: "btn btn-info btn-block", method: :delete, data: { turbo: false } %> 
       </div>
-      <div class="col-sm-1">
-        <%= button_to "-", cart_items_path(item_id: items.first.id), class: "btn btn-info btn-block", method: :delete, data: { turbo: false } %> 
-      </div>
+
     </div>
-
-
-    <% end %>
+  <% end %>
 
     <div class="col-sm-2">
       Total: <%= @cart.total_amount %> €

@@ -32,7 +32,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_06_16_063015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "payment_order_id"
-    t.decimal "total_amount", precision: 10, scale: 2
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 

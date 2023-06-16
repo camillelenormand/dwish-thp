@@ -55,7 +55,9 @@
                 <li><hr class="dropdown-divider"></li>
                 <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
               </div>
-          <%= render(CartButtonComponent.new(cart_size: @cart_size, icon: "fa fa-shopping-bag", url: cart_path(@cart.id), style:"btn btn-outline-primary rounded-pill"))  %>
+            
+          <!--- Shopping Cart Button --->
+          <%= render(CartButtonComponent.new(cart_size: cart_size, icon: "fa fa-shopping-bag", url: cart_path(navbar_cart_id), style:"btn btn-outline-primary rounded-pill"))  %>
         
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">

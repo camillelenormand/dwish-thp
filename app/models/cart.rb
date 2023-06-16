@@ -16,6 +16,7 @@ class Cart < ApplicationRecord
   def cart_items_array
     self.cart_items
   end
+
 # Hash containing grouped  by item {1=>8, 2=>1, 4=>1} 
   def cart_hash
     self.cart_items.group(:item_id).count
@@ -25,6 +26,10 @@ class Cart < ApplicationRecord
   def find_cart_items_price(id)
     self.cart_items.find_by(item_id: id).price
     pp self.cart_items.find_by(item_id: id).price
+  end
+
+  def total_amount
+    cart_items.to_a.sum { |item| item.total_price }
   end
 
 

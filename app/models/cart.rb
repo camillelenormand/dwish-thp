@@ -5,6 +5,8 @@ class Cart < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   belongs_to :user
 
+
+
   def cart_items_number
     self.cart_items.count
   end 
@@ -23,5 +25,11 @@ class Cart < ApplicationRecord
     pp self.cart_items.find_by(item_id: id).price
   end
 
+  def ensure_login
+    unless user_signed_in? 
+      redirect_to new_user_session_path
+
+    end
+  end
 
 end

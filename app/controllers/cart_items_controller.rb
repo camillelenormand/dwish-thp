@@ -1,5 +1,6 @@
 class CartItemsController < ApplicationController
-
+  before_action :authenticate_user!
+  before_action :initialize_cart
   def index
     @CartItems = CartItems.all
   end
@@ -42,8 +43,23 @@ class CartItemsController < ApplicationController
       end
     end 
   end
-private
 
+
+  def initialize_cart
+    puts "initialize carte"
+    puts "current_user :#{current_user}"
+    puts "user_id: #{ @current_user.id}"
+    
+    @cart ||= Cart.find_by(id: session[:cart_id])
+    
+  
+   if @cart.nil?
+     @cart = Cart.create(user_id: @current_user.id, status: 0)
+     puts "cart: #{@cart}"
+     session[:cart_id] = @cart.id
+     puts "session: #{session[:cart_id]}"
+   end 
+  end
 
 
 

@@ -4,7 +4,9 @@ class Cart < ApplicationRecord
   validates :status, presence: true
   validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
-  has_many :cart_items, dependent: :destroy
+  has_many :cart_items, foreign_key: 'cart_id', class_name: 'CartItem', dependent: :destroy
+  has_many :items, through: :cart_items, source: :item
+  
   belongs_to :user
 
   def cart_items_number

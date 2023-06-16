@@ -16,6 +16,10 @@ class CartItem < ApplicationRecord
   def display_price(id)
     Item.find_by_id(id.to_i).name
     pp Item.find_by_id(id.to_i).name
-   end 
+  end 
+
+  def total_price
+    item.price.to_i * quantity.to_i
+  end
 
 end

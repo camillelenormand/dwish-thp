@@ -10,7 +10,7 @@ class CartItem < ApplicationRecord
   belongs_to :item
 
   def total_price
-    item.price.to_i * quantity.to_i
+    item.price * quantity
   end
 
   def item_name

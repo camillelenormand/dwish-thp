@@ -1,9 +1,10 @@
 class CheckoutsController < ApplicationController
   before_action :authenticate_user!
+
+  include CheckoutsHelper
   include PaygreenService
 
   def new
-
   end
 
   def create
@@ -21,26 +22,13 @@ class CheckoutsController < ApplicationController
   end
 
   def success
-    @cart = Cart.find(params[:cart_id])
-    payment_order_id = @cart.payment_order_id
-    token = PaygreenService.authenticate
-    payment_order = PaygreenService.get_payment_order(payment_order_id, token)
-    
-    if payment_order[:transaction_status] == 'transaction.successed'
       @cart.destroy!
-      redirect_to root_path, notice: "Your order has been successfully confirmed."
       @order = Order.create!(user_id: current_user.id, status: "paid", total_amount: payment_order[:amount], payment_order_id: payment_order_id)
     end
   end
 
   def cancel
-    payment_order = PaygreenService.get_payment_order(@cart.payment_order_id, PaygreenService.authenticate)
-    if payment_order[:transaction_status] == 'transaction.canceled'
-      @cart.update(status: "canceled")
-      redirect_to checkout_cancel_path, alert: "The payment has been canceled"
-    else
-      redirect_to checkout_error_path, alert: "An error occurred, please try again."
-    end
+    redirect_to root_path, alert: "The payment has been canceled"
   end
 
 end

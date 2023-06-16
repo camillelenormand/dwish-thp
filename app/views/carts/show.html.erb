@@ -12,7 +12,7 @@
         <%= render partial: 'items/image' %>
       </div>
       <div class="col-sm-2 ">
-        <%= item.name %>
+        <%= item.item.name %>
       </div>
       <div class="col-sm-2">
         Price:<%= item.price %> 
@@ -35,6 +35,6 @@
     </div>
 
   <%# Display delete cart button %>
-  <%= button_to "Place Order", checkout_create_path, data: { turbo: false } %>
+  <%= button_to "Place Order", checkout_create_path, target: :_blank %>
   <%= button_to "Delete Cart", @cart, method: :delete %>
 </div>

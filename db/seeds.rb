@@ -75,3 +75,12 @@ Item.delete_all
 
 
 
+ Cart.create!(user_id: 2, status: "in_progress")
+ CartItem.create!(cart_id: 2, item_id: 2, quantity: 3, price: 9.50)
+ CartItem.create!(cart_id: 2, item_id: 1, quantity: 1, price: 9.50)
+
+
+ # Order creation
+
+ Order.create!(user_id: 2, status: "paid", amount: 19.00, cart_id: 1)
+

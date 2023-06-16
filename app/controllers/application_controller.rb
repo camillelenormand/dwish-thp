@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :phone, :email, :password, :password_confirmation, :current_password)}
   end
 
+  def cart_size
+    @cart = Cart.find_by(user_id: current_user.id)
+    @cart_size = @cart.cart_items.size.last
+  end
+
+
 end

@@ -1,5 +1,45 @@
-<div class="container text-center my-5"> 
-  <h1>Succès</h1> 
-    <p>Nous avons bien reçu votre paiement de <%= number_to_currency(@payment_intent.amount_received / 100.0, unit: "€", separator: ",", delimiter: "", format: "%n %u") %>.</p> 
-    <p>Le statut de votre paiement est : <%= @payment_intent.status %>.</p> 
-</div>
+  <div class="container">
+    <h1 class="mt-4">Confirmation de commande en click and collect</h1>
+
+    <h2 class="mt-4">Détails de votre commande :</h2>
+    <ul class="list-unstyled">
+      <li><strong>Numéro de commande :</strong> [Numéro de commande]</li>
+      <li><strong>Date de commande :</strong> [Date de commande]</li>
+      <li><strong>Heure de commande :</strong> [Heure de commande]</li>
+      <li><strong>Méthode de retrait :</strong> Click and Collect</li>
+    </ul>
+
+    <h2 class="mt-4">Détails de la commande :</h2>
+    <ul class="list-unstyled">
+      <li>
+        <strong>Produit 1 :</strong> [Nom du produit 1]
+        <ul class="list-unstyled">
+          <li><strong>Quantité :</strong> [Quantité du produit 1]</li>
+          <li><strong>Prix unitaire :</strong> [Prix unitaire du produit 1]</li>
+          <li><strong>Sous-total :</strong> [Sous-total du produit 1]</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Produit 2 :</strong> [Nom du produit 2]
+        <ul class="list-unstyled">
+          <li><strong>Quantité :</strong> [Quantité du produit 2]</li>
+          <li><strong>Prix unitaire :</strong> [Prix unitaire du produit 2]</li>
+          <li><strong>Sous-total :</strong> [Sous-total du produit 2]</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p><strong>Total de la commande :</strong> [Total de la commande]</p>
+
+    <h2 class="mt-4">Retrait de la commande :</h2>
+    <p>
+      <strong>Date et heure de retrait :</strong> [Date et heure de retrait]<br>
+      <strong>Point de retrait :</strong> [Adresse du point de retrait]
+    </p>
+
+    <p class="mt-4">
+      Merci encore et à bientôt !
+      <br>
+      <strong>Pour toute question :</strong> [numéro de contact]
+    </p>
+  </div>

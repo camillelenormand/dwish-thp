@@ -1,13 +1,15 @@
 class CartItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :initialize_cart
-  
+  before_action :set_cart_item
+  before_action :set_cart
+
   def index
     @cart = Cart.find(session[:cart_id])
     @cart_items = CartItems.all
   end
 
   def new
+    @cart_item = CartItem.new
   end
 
   def show
@@ -21,9 +23,33 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    @cart = Cart.find(session[:cart_id])
-    @item = Item.find(params[:item_id])
-    @cart_item = CartItem.new(cart_id: @cart.id, item_id: @item.id, quantity: 1, price: @item.price, name: @item.name )
+    begin
+      @cart = Cart.find_by(session[:cart_id])
+      puts "cart found"
+    rescue ActiveRecord::RecordNotFound => e
+      puts "Cart not found"
+      e.record.errors.full_messages
+      render json: { message: 'error' }
+      return
+    end
+
+    begin
+      @item = Item.find(params[:item_id])
+      puts "item found"
+    rescue ActiveRecord::RecordNotFound => e
+      puts "Item not found"
+      e.record.errors.full_messages
+      render json: { message: 'error' }
+      return
+    end
+    begin
+      @cart_item = CartItem.create(cart_id: @cart.id, item_id: @item.id, price: @item.price, name: @item.name)
+    rescue ActiveRecord::RecordNotFound => e
+      puts "Cart item not found"
+      e.record.errors.full_messages
+      render json: { message: 'error' }
+    return
+    end
 
     respond_to do |format|
       if @cart_item.save
@@ -38,11 +64,9 @@ class CartItemsController < ApplicationController
 
     # DELETE /cart_items/1 or /items/1.json
     def destroy
-      puts "test destroy"
       @cart = Cart.find(session[:cart_id])
       @item = Item.find(params[:item_id])
       @cart_item=CartItem.where(cart_id: @cart,item_id: @item).last
-      pp @cart_item
       puts "@cart_item.id: #{@cart_item.id}"
       @cart_item.delete
   
@@ -53,22 +77,14 @@ class CartItemsController < ApplicationController
     end
 
 
-
-
-  def initialize_cart
-    puts "initialize carte"
-    puts "current_user :#{current_user}"
-    puts "user_id: #{ @current_user.id}"
-    
-    @cart ||= Cart.find_by(id: session[:cart_id])
-    
+  private
   
-   if @cart.nil?
-     @cart = Cart.create(user_id: @current_user.id, status: 0)
-     puts "cart: #{@cart}"
-     session[:cart_id] = @cart.id
-     puts "session: #{session[:cart_id]}"
-   end 
+  def set_cart_item
+    @cart_item = CartItem.find_by(params[:id])
+  end
+
+  def cart_item_params
+    params.require(:cart_item).permit(:cart_id, :item_id, :quantity, :price)
   end
 
 end

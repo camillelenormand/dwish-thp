@@ -30,6 +30,8 @@ class WebhooksController < ApplicationController
 
     begin
       cart.destroy!
+      # Remove cart from session
+      session[:cart_id] = nil
       puts "Cart destroyed"
     rescue ActiveRecord::RecordInvalid => e
       puts "Cart not destroyed"

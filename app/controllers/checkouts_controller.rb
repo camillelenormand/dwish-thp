@@ -6,7 +6,7 @@ class CheckoutsController < ApplicationController
   def create
 
     begin 
-      @cart = Cart.find(session[:cart_id])
+      @cart = Cart.find_by(session[:cart_id])
       puts "Cart found #{@cart.id}"
     rescue ActiveRecord::RecordNotFound => e
       puts "Cart not found"

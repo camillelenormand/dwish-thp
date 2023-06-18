@@ -1,16 +1,22 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  resources :cart_items
+  resources :carts
+  resources :items
+  resources :categories
   resources :users, only: [:index, :show, :edit, :update]
 
-  resources :categories
-  resources :items
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # webhooks
+  post '/webhooks', to: 'webhooks#create'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  scope '/checkouts' do
+    post 'create', to: 'checkouts#create', as: 'checkouts_create'
+    get 'success', to: 'checkouts#success', as: 'checkouts_success'
+    get 'cancel', to: 'checkouts#cancel', as: 'checkouts_cancel'
+    get 'error', to: 'checkouts#error', as: 'checkouts_error'
+  end
+
   root 'welcome#index'
 end

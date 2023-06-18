@@ -1,39 +1,22 @@
-<style>
-h1 {
-  color: blue;}
-#itemsblock {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
-    padding: 10px;
-  border: 1px solid #000;
-}
-
-  </style>
-<p style="color: green"><%= notice %></p>
-
-
-<div class="container-fluid">
-
-  <div class= "col-sm-7 inline text-center" >
-  <h1>bloc items</h1>
-    <div id="itemsblock">
-      <% @items.each do |item| %>
-      <div class= "col-sm-5 text-center" >
-        <div class="card"  >
-          <div class="card-body">
-            <%= render item %>
-              <p>
-              <button type="button" class="btn btn-info">Commander</button>
-            </p>
-          </div>
-        </div>
-        <!-- app/views/carts/show.html.erb -->
-      </div>
-      <% end %>
+<div class="justify-content-sm-center mx-2">
+  <h1>Menu</h1>
     </div>
-  </div>
-
-
+        <% @categories.each do | category | %>
+          <div class="justify-content-sm-center mx-2">
+            <h3><%= category.name %></h3>
+          </div>
+            <% @items.select { |item| item.category.name == category.name }.each do |item| %>
+              <div class="row row-cols-1 row-cols-md-4 row-cols-md-2 g-3 mb-3">
+                <div class="col-md-4">
+                  <%= render partial: 'items/image' %>
+                </div>
+                <div class="col-md-4">
+                  <%= render item %>
+                    <div class="p-2">
+                      <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
+                    </div>
+                </div>
+              </div>
+            <% end %>
+        <% end %>
+</div>

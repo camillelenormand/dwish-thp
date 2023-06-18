@@ -1,44 +1,141 @@
-<footer class="mt-5">
-    <div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>DWISH</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Recrutement</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Contactez</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Presse</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">A propos</a></li>
-        </ul>
-      </div>
+<div class="container my-5">
+  <!-- Footer -->
+  <footer
+          class="text-center text-lg-start text-dark"
+          >
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Links -->
+      <section class="">
+        <!--Grid row-->
+        <div class="row ">
+        <hr class="my-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">
+              DWISH
+            </h6>
+              <p>
+              A l'origine de Dwish, il y a l'amour des bons produits et du bien manger ❤️. <br>
+              On s'est lancé comme mission de redorer le blason de ce cher Lord Sandwich 🤴 ! <br>
+              en proposant un vrai et bon sandwich avec des produits frais et maison 👩‍🍳.<br>
+              </p>
+            </div>
+          <!-- Grid column -->
 
-      <div class="col-6 col-md-3 mb-3">
-        <h5>Horaires d'ouvertures</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2">Du lundi au vendredi 11:30 — 15:30</li>
-          <li class="nav-item mb-2">Fermé le week-end</li>
-        </ul>
-      </div>
+          <hr class="w-100 clearfix d-md-none" />
 
-      <div class="col-md-6 offset-md-1 mb-3">
-        <form>
-        <h5>Adresse</h5>
-          <p class="text-left">2 Rue Edmond Rostand</p>
-          <p class="text-left">13006 Marseille</p>
-          </p class="text-left"><span>Téléphone: </span>+33 7 67 10 30 14</p>
-          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-            <p>A l'origine de Dwish, il y a l'amour des bons produits et du bien manger ❤️. 
-            Alors on s'est lancé comme mission de redorer le blason de ce cher Lord Sandwich 🤴 !
-            Tout simplement en proposant un vrai et bon sandwich; avec des produits frais 🥕 🍅, maison 👩‍🍳, et locaux ☀️.</p>
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Liens utiles</h6>
+            <p>
+              <%= link_to'Contactez-nous', page_path('contact'), class: 'text-dark'%> 
+            </p>
+            <p>
+              <%= link_to'Recrutement', page_path('recrutment'), class: 'text-dark'%> 
+            </p>
+            <p>
+              <%= link_to'À propos', page_path('a-propos'), class: 'text-dark'%> 
+            </p>
+            <p>
+              <%= link_to'Presse', page_path('presse'), class: 'text-dark'%> 
+            </p>
           </div>
-        </form>
-      </div>
-    </div>
 
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2023 Dwish, Tous Droits Réservés.</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-body-emphasis" href="https://www.facebook.com/dwish.marseille/"><i class="fab fa-facebook-f"></i></a></li>
-        <li class="ms-3"><a class="link-body-emphasis" href="https://www.instagram.com/dwish.marseille/?hl=en"><i class="fab fa-instagram"></i></a></li>
-      </ul>
+          <!-- Grid column -->
+
+                    <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Informations légales</h6>
+            <p>
+              <%= link_to'Politique de confidentialité', page_path('politique-de-confidentialite'), class: 'text-dark'%> 
+            </p>
+            <p>
+            <%= link_to'CGV', page_path('conditions-generales-de-vente'), class: 'text-dark'%>
+            </p>
+            <p>
+            <%= link_to'Cookies', page_path('cookies'), class: 'text-dark'%>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> 2 rue Edmond Rostand</p>
+            <p><i class="fas fa-print mr-3"></i> 13006 MARSEILLE</p>
+            <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> 07 67 10 30 14</p>
+          </div>
+
+          <!-- Grid column -->
+                    <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Horaires</h6>
+            <p><i class="fas fa-clock mr-3"></i> Lundi au vendredi : 11h30 - 15h30</p>
+            <p><i class="fas fa-lock mr-3"></i> Fermé le week-end</p>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+
+      <hr class="my-3">
+
+      <!-- Section: Copyright -->
+      <section class="p-3 pt-0">
+        <div class="row d-flex align-items-center">
+          <!-- Grid column -->
+          <div class="col-md-7 col-lg-8 text-center text-md-start">
+            <!-- CGV -->
+            <div class="p-3">
+              <p>Nos réseaux</p>
+            </div>
+
+            
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+            <!-- Facebook -->
+            <a
+               class="btn btn-outline-light btn-floating m-1 bg-dark"
+               class="text-dark"
+               role="button"
+               href="https://www.facebook.com/dwish.marseille/"
+               ><i class="fab fa-facebook-f"></i
+              ></a>
+
+            <!-- Instagram -->
+            <a
+               class="btn btn-outline-light btn-floating m-1 bg-dark"
+               class="text-dark"
+               role="button"
+               href="https://www.instagram.com/dwish.marseille/?hl=en"
+               ><i class="fab fa-instagram"></i
+              ></a>
+
+            <!-- Google Map -->
+            <a
+               class="btn btn-outline-light btn-floating m-1 bg-dark"
+               class="text-dark"
+               role="button"
+               href="https://www.google.com/maps/dir//dwish+marseille/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x12c9c134200c577f:0x300df3f88a414a9d?sa=X&ved=2ahUKEwjVrbXKwr3_AhVLTaQEHXkNDhkQ9Rd6BAhJEAU"
+               ><i class="fab fa-google"></i
+              ></a>
+
+          </div>
+          <!-- Grid column -->
+        </div>
+      </section>
+      <!-- Section: Copyright -->
     </div>
+    <!-- Grid container -->
   </footer>
+  <!-- Footer -->
+</div>

@@ -70,4 +70,5 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:cart).permit(:status, :amount, :user_id, :cart_id, :operation_id_paygreen)
     end
+
 end

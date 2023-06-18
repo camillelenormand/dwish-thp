@@ -1,11 +1,8 @@
 class CartsController < ApplicationController
-  helper_method :display_name
-  helper_method :generate_cart_total_amount
-  include CartsHelper
-  
-  def index
-    @carts = Cart.all
-  end
+
+    def index
+      @carts = Cart.all
+    end
 
   def show
     @cart = Cart.find(params[:id])
@@ -14,7 +11,7 @@ class CartsController < ApplicationController
   end
 
   def create
-    @cart = Cart.new(user_id: @current_user.id, status: 0)
+    @cart = Cart.new(user_id: @current_user.id, status: "in_progress")
     
     respond_to do |format|
       if @cart.save
@@ -43,7 +40,7 @@ class CartsController < ApplicationController
   end
   
   def destroy
-    @cart.destroy!
+    @cart = Cart.find(params[:id]).destroy
 
     respond_to do |format|
       format.html { redirect_to carts_url, notice: "Cart was successfully destroyed." }

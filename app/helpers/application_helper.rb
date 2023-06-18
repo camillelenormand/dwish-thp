@@ -1,39 +1,18 @@
 module ApplicationHelper
 
-  def navbar_cart_id
-    @cart = Cart.find_by(user_id: current_user.id, status: "in_progress")
-    return @cart.id
+  def set_cart
+    @cart = Cart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    @cart = Cart.create
+    session[:cart_id] = @cart.id
   end
 
-  def cart_size
-  #  @cart_items = CartItem.where(cart_id: navbar_cart_id)
-  #  total = @cart_items.sum(:quantity)
-  # return total
-    if @cart.present? 
-      @cart_items = CartItem.where(cart_id: navbar_cart_id)
-      total = @cart_items.sum(:quantity)
-    else 
-      total=0
-    end
-    total
+  def cart_count_over_one
+    return total_cart_items if total_cart_items > 0
   end
 
-  def navbar_cart_path
-    @cart=Cart.find_by(user_id: current_user.id)
-    
-    pp @cart
-    puts "@cart=Cart.find_by(user_id: current_user.id)  #{@cart}  user_id: current_user.id #{current_user.id} "
-    puts "@cart.id: #{@cart&.id} " 
-    
-      if @cart.present? 
-        puts "#cart.present? #{@cart.present? }"
-        my_cart_path=cart_path(@cart&.id)
-      else
-        my_cart_path=items_path
-      end
-      my_cart_path  
-  
+  def total_cart_items
+    total = @cart.cart_items.map(&:quantity).sum
   end
 
 end
-

@@ -1,23 +1,21 @@
 Rails.application.routes.draw do
-  resources :orders
   devise_for :users
 
-  resources :carts do
-    resources :cart_items
-  end
-
   resources :cart_items
+  resources :carts
   resources :items
-
   resources :categories
   resources :users, only: [:index, :show, :edit, :update]
 
+  # webhooks
+  post '/webhooks', to: 'webhooks#create'
 
-  scope '/checkout' do
-    post 'create', to: 'checkouts#create', as: 'checkout_create'
-    get 'success', to: 'checkouts#success', as: 'checkout_success'
-    get 'cancel', to: 'checkouts#cancel', as: 'checkout_cancel'
-    get 'error', to: 'checkouts#error', as: 'checkout_error'
+
+  scope '/checkouts' do
+    post 'create', to: 'checkouts#create', as: 'checkouts_create'
+    get 'success', to: 'checkouts#success', as: 'checkouts_success'
+    get 'cancel', to: 'checkouts#cancel', as: 'checkouts_cancel'
+    get 'error', to: 'checkouts#error', as: 'checkouts_error'
   end
 
   root 'welcome#index'

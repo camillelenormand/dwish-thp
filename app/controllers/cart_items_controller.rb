@@ -11,7 +11,9 @@ class CartItemsController < ApplicationController
   end
 
   def show
- 
+  end
+
+  def edit
   end
 
   def count
@@ -31,7 +33,7 @@ class CartItemsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         #format.json { render json: cart.errors, status: :unprocessable_entity }
       end
-    end 
+    end
   end
 
     # DELETE /cart_items/1 or /items/1.json

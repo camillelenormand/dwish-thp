@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update, :create, :new]
+  before_action :authenticate_user!, only: [:edit, :update]
+  after_create :welcome_send
+
+  def welcome_send
+    UserMailer.welcome_email(self).deliver_now
+  end
 
   include PaygreenService
 

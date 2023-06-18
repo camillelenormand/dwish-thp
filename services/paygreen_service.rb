@@ -49,6 +49,8 @@ module PaygreenService
       merchant_initiated: false,
       mode: "instant",
       partial_allowed: false,
+      return_url: return_url,
+      cancel_url: cancel_url,
       buyer: {
         first_name: first_name,
         last_name: last_name,
@@ -64,13 +66,15 @@ module PaygreenService
     if response.is_a?(Net::HTTPSuccess)
       hosted_payment_url = JSON.parse(response.body)["data"]["hosted_payment_url"]
       payment_order_id = JSON.parse(response.body)["data"]["id"]
+      payment_order_status = JSON.parse(response.body)["data"]["status"]
       return {
         hosted_payment_url: hosted_payment_url,
         payment_order_id: payment_order_id,
+        payment_order_status: payment_order_status
         
       }
     else
-      raise "Error: #{response.body}"
+      raise "API request failed with status: #{response.code}"
     end
 
   end

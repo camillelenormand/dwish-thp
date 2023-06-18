@@ -84,3 +84,4 @@ gem "dotenv-rails", "~> 2.8"
 gem "rails-i18n", "~> 7.0"
 
 gem "pry", "~> 0.14.2"
+

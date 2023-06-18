@@ -3,7 +3,8 @@ class CartItemsController < ApplicationController
   before_action :initialize_cart
   
   def index
-    @CartItems = CartItems.all
+    @cart = Cart.find(session[:cart_id])
+    @cart_items = CartItems.all
   end
 
   def new
@@ -18,8 +19,6 @@ class CartItemsController < ApplicationController
   def count
     @cart_size = CartItem.where(cart_id: session[:cart_id]).count
   end
-
-
 
   def create
     @cart = Cart.find(session[:cart_id])

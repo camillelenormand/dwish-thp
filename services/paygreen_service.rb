@@ -28,9 +28,11 @@ module PaygreenService
 
   end
 
-  def self.create_payment_order(amount, first_name, last_name, email)
+  def self.create_payment_order(amount, first_name, last_name, email, phone, user_id)
     token = @token || authenticate
     shop_id = ENV["PAYGREEN_SHOP_ID"]
+    return_url = URI("http://localhost:3000/checkouts/success")
+    cancel_url = URI("http://localhost:3000/checkouts/cancel")
 
     url = URI("https://sb-api.paygreen.fr/payment/payment-orders")
 
@@ -50,7 +52,9 @@ module PaygreenService
       buyer: {
         first_name: first_name,
         last_name: last_name,
-        email: email
+        email: email,
+        phone: phone,
+        external_id: user_id
       },
       amount: amount * 100,
       shop_id: shop_id
@@ -97,12 +101,42 @@ module PaygreenService
         payment_order_id: payment_order_id,
         transaction_id: transaction_id,
         transaction_status: transaction_status,
-        operation_id: operation_id,
       }
     else
       raise "Error: #{response.body}"
     end
+  end
 
+  def self.create_buyer(first_name, last_name, email, phone_number, user_id)
+    token = @token || authenticate
+    url = URI("#{API_BASE_URL}/payment/buyers")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+
+    request = Net::HTTP::Post.new(url)
+    request["accept"] = 'application/json'
+    request["content-type"] = 'application/json'
+    request["authorization"] = "Bearer #{token}"
+    
+    request.body = {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone_number: phone_number,
+      external_id: user_id
+    }.to_json
+
+    response = http.request(request)
+    
+    if response.is_a?(Net::HTTPSuccess)
+      buyer_id = JSON.parse(response.body)["data"]["id"]
+      return {
+        buyer_id: buyer_id
+      }
+    else
+      raise "Error: #{response.body}"
+    end
   end
 
 end

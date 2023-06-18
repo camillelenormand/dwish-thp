@@ -54,16 +54,12 @@
                 <%= link_to "Profil", user_path(current_user), class:"dropdown-item" %>
                 <li><hr class="dropdown-divider"></li>
                 <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
-          </div>
-          <%= render(CartButtonComponent.new(cart_size: @cart_size, icon: "fa fa-shopping-bag", url: items_path, style:"btn btn-outline-primary rounded-pill"))  %>
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-            </div>
-          </div>
+              </div>
+            
+          <!--- Shopping Cart Button --->
+          <% if cart_count_over_one %>
+          <%= render(CartButtonComponent.new(cart_size: cart_count_over_one, icon: "fa fa-shopping-bag", url: cart_path(@cart), style:"btn btn-outline-primary rounded-pill")) %>
+          <% end %>
         <% else %>
           <%= button_to "Se connecter", new_user_session_path, class:"btn btn-dark px-3 me-2" %>
           <%= link_to "Créer un compte", new_user_registration_path, class:"btn btn-light me-3" %>

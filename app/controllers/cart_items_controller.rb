@@ -1,5 +1,7 @@
 class CartItemsController < ApplicationController
-
+  before_action :authenticate_user!
+  before_action :initialize_cart
+  
   def index
     @CartItems = CartItems.all
   end
@@ -8,7 +10,9 @@ class CartItemsController < ApplicationController
   end
 
   def show
- 
+  end
+
+  def edit
   end
 
   def count
@@ -18,34 +22,54 @@ class CartItemsController < ApplicationController
 
 
   def create
-    p params
-    puts params[:item_id].to_i
-    @item = Item.find(params[:item_id].to_i)
-    quantity=1
-    
-    puts "cart_id: #{ session[:cart_id]}"
-    puts "item_id: #{ @item.id}"
-    puts "quantity: #{quantity}"
-    puts "price: #{@item.price}"
-
-    
-    @CartItem = CartItem.new(cart_id: session[:cart_id], item_id: @item.id, quantity: 1, price: @item.price )
-
+    @cart = Cart.find(session[:cart_id])
+    @item = Item.find(params[:item_id])
+    @cart_item = CartItem.new(cart_id: @cart.id, item_id: @item.id, quantity: 1, price: @item.price, name: @item.name )
 
     respond_to do |format|
-      if @CartItem.save
-        format.html { redirect_to items_path , notice: "Article #{@item.name} ajouté au panier" }
+      if @cart_item.save
+        format.html { redirect_to cart_path(@cart) , notice: "Article #{@item.name} ajouté au panier." }
         #format.json { render :show, status: :created, location: @item }
-        else
+      else
         format.html { render :new, status: :unprocessable_entity }
-      #format.json { render json: cart.errors, status: :unprocessable_entity }
+        #format.json { render json: cart.errors, status: :unprocessable_entity }
       end
-    end 
+    end
   end
-private
+
+    # DELETE /cart_items/1 or /items/1.json
+    def destroy
+      puts "test destroy"
+      @cart = Cart.find(session[:cart_id])
+      @item = Item.find(params[:item_id])
+      @cart_item=CartItem.where(cart_id: @cart,item_id: @item).last
+      pp @cart_item
+      puts "@cart_item.id: #{@cart_item.id}"
+      @cart_item.delete
+  
+      respond_to do |format|
+        format.html { redirect_to cart_path(@cart), notice: "Article #{@item.name} supprimé du panier." }
+        format.json { head :no_content }
+      end
+    end
 
 
 
 
+  def initialize_cart
+    puts "initialize carte"
+    puts "current_user :#{current_user}"
+    puts "user_id: #{ @current_user.id}"
+    
+    @cart ||= Cart.find_by(id: session[:cart_id])
+    
+  
+   if @cart.nil?
+     @cart = Cart.create(user_id: @current_user.id, status: 0)
+     puts "cart: #{@cart}"
+     session[:cart_id] = @cart.id
+     puts "session: #{session[:cart_id]}"
+   end 
+  end
 
 end

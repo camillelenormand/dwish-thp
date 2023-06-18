@@ -11,6 +11,7 @@ module DwishThp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
     config.i18n.default_locale = :fr
+    config.autoload_paths << "#{Rails.root}/services"
 
     # Configuration for the application, engines, and railties goes here.
     #

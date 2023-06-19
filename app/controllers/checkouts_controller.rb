@@ -65,6 +65,7 @@ class CheckoutsController < ApplicationController
   def success
     po_id = params[:po_id]
     status = params[:status]
+    @order = Order.find_by(payment_order_id: po_id)
   end
 
   def cancel
@@ -75,7 +76,7 @@ class CheckoutsController < ApplicationController
   private
 
   def checkout_params
-    params.require(:checkout).permit(:cart_id, :payment_order_id, :status)
+    params.require(:checkout).permit(:cart_id, :payment_order_id, :status, :po_id)
   end
 
 end

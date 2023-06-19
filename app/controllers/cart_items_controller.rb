@@ -50,10 +50,13 @@ class CartItemsController < ApplicationController
       @cart_item = CartItem.create(cart_id: @cart.id, item_id: @item.id, price: @item.price, name: @item.name, quantity: 1)
       puts "cart item created, id: #{params[:item_id]}, cart_id: #{session[:cart_id]},  price: #{params[:price]}, name: #{params[:name]}, quantity: #{params[:quantity]}"
   
-        if @cart_item.save
+        if @cart_item.save && URI(request.referer).path == items_path
           redirect_to items_path , notice: "Article #{@item.name} ajouté au panier." 
+        elsif @cart_item.save && URI(request.referer).path == cart_path(@cart)
+          redirect_to cart_path(@cart) , notice: "Article ajouté au panier."
         else
           format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @cart_item.errors, status: :unprocessable_entity }
         end
 
     rescue ActiveRecord::RecordNotFound => e

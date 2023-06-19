@@ -63,28 +63,13 @@ class CheckoutsController < ApplicationController
   end
 
   def success
-    @session = po_id = params[:po_id]
+    po_id = params[:po_id]
     status = params[:status]
   end
 
   def cancel
-    if payment_order[:transaction_status] = 'transaction.canceled'
-      @cart.update(status: "canceled")
-      redirect_to checkout_cancel_path, alert: "Le paiement a été annulé"
-    else
-      redirect_to checkout_error_path, alert: "Une erreur est survenue, veuillez réessayer."
-    end
-
-  end
-
-  def expired
-    if payment_order[:transaction_status] = 'transaction.expired'
-      @cart.update(status: "expired")
-      redirect_to checkout_error_path, alert: "Le paiement a expiré"
-    else
-      redirect_to checkout_error_path, alert: "Une erreur est survenue, veuillez réessayer."
-    end
-
+    @cart.update(status: "cancelled")
+    redirect_to checkouts_cancel_path, alert: "Le paiement a été annulé"
   end
 
   private

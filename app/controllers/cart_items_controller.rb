@@ -62,6 +62,7 @@ class CartItemsController < ApplicationController
 
     begin
       @cart_item = CartItem.create(cart_id: @cart.id, item_id: @item.id, price: @item.price, name: @item.name)
+      puts "cart item created, id: #{params[:item_id]}, cart_id: #{session[:cart_id]},  price: #{params[:price]}, name: #{params[:name]}, quantity: #{params[:quantity]}"
     rescue ActiveRecord::RecordNotFound => e
       puts "Cart item not found"
       e.record.errors.full_messages

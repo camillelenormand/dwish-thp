@@ -1,5 +1,4 @@
 class WebhooksController < ApplicationController
-
   skip_before_action :verify_authenticity_token
 
   def create
@@ -17,6 +16,9 @@ class WebhooksController < ApplicationController
       render json: { message: 'error' }
       return
     end
+
+    # Send confirmation email
+    send_confirmation_email
 
     # delete cart
     begin
@@ -50,6 +52,14 @@ class WebhooksController < ApplicationController
       render json: { message: 'error' }
     end
 
+  end
+
+  private
+
+  def send_confirmation_email
+    order = Order.find_by(payment_order_id: params.dig(:id))
+    user = User.find(order.user_id)
+    UserMailer.confirm_order_email(user, order).deliver_now
   end
 
 end

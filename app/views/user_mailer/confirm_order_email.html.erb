@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmation de commande</title>
+</head>
+<body>
+  <p>Cher(e) <%= @user.first_name %>,</p>
+  <p>Nous sommes ravis de vous informer que votre commande a été confirmée avec succès. Nous vous remercions de votre achat auprès de notre boutique en ligne.</p>
+  
+  <p>Détails de la commande :</p>
+  <ul>
+    <li>Numéro de commande : #<%= @order.id %></li>
+    <li>Date de commande : <%= @order.created_at %></li>
+    <li>Total : <%= @order.amount %></li>
+  </ul>
+  
+  <p>Nous avons bien pris en compte votre commande et nous sommes en train de la préparer avec le plus grand soin. Une fois votre commande expédiée, vous recevrez une notification de suivi contenant les informations nécessaires pour suivre l'acheminement de votre colis.</p>
+  
+  <p>Si vous avez des questions ou besoin d'une assistance supplémentaire, n'hésitez pas à nous contacter. Notre équipe du service clientèle se fera un plaisir de vous aider.</p>
+  
+  <p>Encore une fois, nous vous remercions pour votre confiance et votre soutien continu.</p>
+  
+  <p>Cordialement,</p>
+  <p>Dwish</p>
+</body>
+</html>

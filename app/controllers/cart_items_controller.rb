@@ -51,7 +51,7 @@ class CartItemsController < ApplicationController
       puts "cart item created, id: #{params[:item_id]}, cart_id: #{session[:cart_id]},  price: #{params[:price]}, name: #{params[:name]}, quantity: #{params[:quantity]}"
   
         if @cart_item.save
-          redirect_to cart_path(@cart) , notice: "Article #{@item.name} ajouté au panier." 
+          redirect_to items_path , notice: "Article #{@item.name} ajouté au panier." 
         else
           format.html { render :new, status: :unprocessable_entity }
         end

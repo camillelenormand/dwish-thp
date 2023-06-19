@@ -42,7 +42,7 @@ class CartItemsController < ApplicationController
   def create
     begin
       @cart = Cart.find_by(session[:cart_id])
-      puts "cart found"
+      puts "cart found, id: #{session[:cart_id]}"
     rescue ActiveRecord::RecordNotFound => e
       puts "Cart not found"
       e.record.errors.full_messages

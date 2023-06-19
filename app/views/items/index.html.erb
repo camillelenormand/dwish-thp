@@ -13,7 +13,7 @@
                 <div class="col-md-4">
                   <%= render item %>
                     <div class="p-2">
-                      <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
+                      <%= button_to "Ajouter au panier", cart_items_path(item.id), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
                     </div>
                 </div>
               </div>

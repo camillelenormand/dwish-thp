@@ -58,7 +58,7 @@
             
           <!--- Shopping Cart Button --->
           <% if cart_count_over_one %>
-          <%= render(CartButtonComponent.new(cart_size: cart_count_over_one, icon: "fa fa-shopping-bag", url: cart_path(@cart), style:"btn btn-outline-primary rounded-pill")) %>
+          <%= render(CartButtonComponent.new(cart_size: cart_count_over_one, icon: "fa fa-shopping-bag", url: cart_path(id: @cart.id), style:"btn btn-outline-primary rounded-pill")) %>
           <% end %>
         <% else %>
           <%= button_to "Se connecter", new_user_session_path, class:"btn btn-dark px-3 me-2" %>

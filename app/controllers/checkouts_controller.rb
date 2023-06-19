@@ -69,7 +69,6 @@ class CheckoutsController < ApplicationController
   end
 
   def cancel
-    @cart.update(status: "cancelled")
     redirect_to checkouts_cancel_path, alert: "Le paiement a été annulé"
   end
 

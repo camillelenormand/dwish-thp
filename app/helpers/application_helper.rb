@@ -4,8 +4,8 @@ module ApplicationHelper
     @cart = Cart.find(session[:cart_id])
     puts "cart found, id: #{session[:cart_id]}"
   rescue ActiveRecord::RecordNotFound
-    @cart = Cart.create
-    puts "cart created, id: #{session[:cart_id]}"
+    @cart = Cart.create(user_id: current_user&.id, status: 'in_progress', total_amount: 0)
+    puts "cart created, id: #{session[:cart_id]}, user_id: #{current_user&.id}, status: 'in_progress', total_amount: 0"
     session[:cart_id] = @cart.id
     puts "cart id stored in session"
   end

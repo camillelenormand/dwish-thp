@@ -5,6 +5,7 @@ Mailjet.configure do |config|
   config.api_key = ENV['MAILJET_API_KEY']
   config.secret_key = ENV['MAILJET_SECRET_KEY']
   config.default_from = ENV['MAILJET_DEFAULT_FROM']
+  config.api_version = "v3.1"
   # Mailjet API v3.1 is at the moment limited to Send API.
   # We’ve not set the version to it directly since there is no other endpoint in that version.
   # We recommend you create a dedicated instance of the wrapper set with it to send your emails.

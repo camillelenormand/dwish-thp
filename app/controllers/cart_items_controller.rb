@@ -51,7 +51,7 @@ class CartItemsController < ApplicationController
     end
 
     begin
-      @item = Item.find(params[:item_id])
+      @item = Item.find_by(params[:item_id])
       puts "item found, id: #{params[:item_id]}"
     rescue ActiveRecord::RecordNotFound => e
       puts "Item not found"

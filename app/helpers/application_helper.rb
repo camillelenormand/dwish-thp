@@ -5,9 +5,9 @@ module ApplicationHelper
     puts "cart found, id: #{session[:cart_id]}"
   rescue ActiveRecord::RecordNotFound
     @cart = Cart.create(user_id: @user&.id, status: 'in_progress')
-    puts "cart created, id: #{session[:cart_id]}, user_id: #{current_user&.id}, status: 'in_progress'"
+    puts "cart created, id: #{@cart.id}, user_id: #{current_user&.id}, status: 'in_progress'"
     session[:cart_id] = @cart.id
-    puts "cart id stored in session"
+    puts "cart id stored in session, id: #{session[:cart_id]}"
   end
 
   def cart_count_over_one

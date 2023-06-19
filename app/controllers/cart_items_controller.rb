@@ -43,43 +43,27 @@ class CartItemsController < ApplicationController
     begin
       @cart = Cart.find_by(session[:cart_id])
       puts "cart found, id: #{session[:cart_id]}"
-    rescue ActiveRecord::RecordNotFound => e
-      puts "Cart not found"
-      e.record.errors.full_messages
-      render json: { message: 'error' }
-      return
-    end
-
-    begin
-      @item = Item.find_by(params[:item_id])
+  
+      @item = Item.find(params[:item_id])
       puts "item found, id: #{params[:item_id]}"
-    rescue ActiveRecord::RecordNotFound => e
-      puts "Item not found"
-      e.record.errors.full_messages
-      render json: { message: 'error' }
-      return
-    end
-
-    begin
+  
       @cart_item = CartItem.create(cart_id: @cart.id, item_id: @item.id, price: @item.price, name: @item.name, quantity: 1)
       puts "cart item created, id: #{params[:item_id]}, cart_id: #{session[:cart_id]},  price: #{params[:price]}, name: #{params[:name]}, quantity: #{params[:quantity]}"
+  
+        if @cart_item.save
+          redirect_to cart_path(@cart) , notice: "Article #{@item.name} ajouté au panier." 
+        else
+          format.html { render :new, status: :unprocessable_entity }
+        end
+
     rescue ActiveRecord::RecordNotFound => e
-      puts "Cart item not found"
+      puts "#{e.record.class} not found"
       e.record.errors.full_messages
       render json: { message: 'error' }
       return
     end
-
-    respond_to do |format|
-      if @cart_item.save
-        format.html { redirect_to cart_path(@cart) , notice: "Article #{@item.name} ajouté au panier." }
-        #format.json { render :show, status: :created, location: @item }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        #format.json { render json: cart.errors, status: :unprocessable_entity }
-      end
-    end
   end
+  
 
     # DELETE /cart_items/1 or /items/1.json
     def destroy

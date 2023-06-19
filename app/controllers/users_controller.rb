@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update]
-  after_create :welcome_send
-
-  def welcome_send
-    UserMailer.welcome_email(self).deliver_now
-  end
+  after_action :welcome_email, only: [:create]
 
   include PaygreenService
 
@@ -31,7 +27,10 @@ class UsersController < ApplicationController
     else
       render json: { message: 'error' }
     end
-    
+  end
+
+  def welcome_send
+    UserMailer.welcome_email(self).deliver_now
   end
 
   def update
@@ -52,7 +51,6 @@ class UsersController < ApplicationController
        render json: { message: 'error' }
      end
   end
-
 
   private
 

@@ -1,3 +1,6 @@
+require 'dotenv/load'
+Dotenv.load(".env.#{Rails.env}")
+
 require_relative "boot"
 
 require "rails/all"

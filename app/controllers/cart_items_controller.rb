@@ -9,7 +9,7 @@ class CartItemsController < ApplicationController
     puts "cart found, id: #{session[:cart_id]}"
     rescue ActiveRecord::RecordNotFound => e
       e.record.errors.full_messages
-      render json: { message: 'error' }
+      render json: { message: 'error', error: e.record.errors.full_messages }
       return
     end
 
@@ -18,7 +18,7 @@ class CartItemsController < ApplicationController
     puts "cart items found"
     rescue ActiveRecord::RecordNotFound => e
       e.record.errors.full_messages
-      render json: { message: 'error' }
+      render json: { message: 'error', error: e.record.errors.full_messages }
       return
     end
 
@@ -34,7 +34,7 @@ class CartItemsController < ApplicationController
     puts "cart size found, size: #{@cart_size}"
     rescue ActiveRecord::RecordNotFound => e
       puts "Cart size not calculated"
-      render json: { message: 'error' }
+      render json: { message: 'error', error: e.record.errors.full_messages }
       return
     end
   end
@@ -61,8 +61,7 @@ class CartItemsController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => e
       puts "#{e.record.class} not found"
-      e.record.errors.full_messages
-      render json: { message: 'error' }
+      render json: { message: 'error', error: e.record.errors.full_messages }
       return
     end
   end
@@ -75,7 +74,7 @@ class CartItemsController < ApplicationController
   
       respond_to do |format|
         format.html { redirect_to cart_path(@cart), notice: "Article supprimé du panier." }
-        format.json { head :no_content }
+        format.json { head :no_content, status: :ok }
       end
     end
 
@@ -86,7 +85,7 @@ class CartItemsController < ApplicationController
     @cart = Cart.find_by(session[:cart_id])
     puts "cart found, id: #{session[:cart_id]}"
   rescue ActiveRecord::RecordNotFound => e
-    render json: { message: 'error' }
+    render json: { message: 'error', error: e.record.errors.full_messages, status: :unprocessable_entity }
   end
   
   def set_cart_item

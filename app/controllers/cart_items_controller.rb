@@ -5,7 +5,7 @@ class CartItemsController < ApplicationController
 
   def index
     begin 
-    @cart = Cart.find(session[:cart_id])
+    @cart = Cart.find_by(session[:cart_id])
     puts "cart found, id: #{session[:cart_id]}"
     rescue ActiveRecord::RecordNotFound => e
       e.record.errors.full_messages

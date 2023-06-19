@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
-  include ApplicationHelper
   protect_from_forgery with: :exception
 
-  # Setting cart 
+  include ApplicationHelper
   before_action :set_cart
 
   add_flash_types :info, :error, :warning, :success

@@ -86,3 +86,6 @@ gem "rails-i18n", "~> 7.0"
 gem "pry", "~> 0.14.2"
 
 gem "administrate"
+
+gem "mailjet", "~> 1.7"
+

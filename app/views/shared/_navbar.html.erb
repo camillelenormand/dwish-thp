@@ -28,7 +28,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <!-- Left links -->
-      <div class="navbar-nav me-auto mb-2 mt-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mt-2 mb-lg-0">
         <li class="nav-item">
           <%= link_to "Commander", items_path, class:"nav-link" %> 
         </li>   
@@ -38,7 +38,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/a-propos">A propos</a>
         </li>
-      </div>
+      </ul>
       <!-- Left links -->
  
    <!-- Collapsible wrapper -->
@@ -58,7 +58,7 @@
             
           <!--- Shopping Cart Button --->
           <% if cart_count_over_one %>
-          <%= render(CartButtonComponent.new(cart_size: cart_count_over_one, icon: "fa fa-shopping-bag", url: cart_path(@cart), style:"btn btn-outline-primary rounded-pill")) %>
+          <%= render(CartButtonComponent.new(cart_size: cart_count_over_one, icon: "fa fa-shopping-bag", url: cart_path(id: @cart.id), style:"btn btn-outline-primary rounded-pill")) %>
           <% end %>
         <% else %>
           <%= button_to "Se connecter", new_user_session_path, class:"btn btn-dark px-3 me-2" %>

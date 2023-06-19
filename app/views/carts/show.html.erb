@@ -1,41 +1,95 @@
-<div class="justify-content-sm-center mx-2">
-  <div>
-    <%# Display cart details %>
-    <h6>Your cart: <%= @cart.total_amount %>€ Number of items: <%= @cart.cart_items_number %></h6>
-    <h6>Cart Number: <%= @cart.id %> Customer: <%= current_user.email %></h6>
+<section class="h-100 h-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                        <h1 class="fw-bold mb-0 text-black">Votre panier</h1>
+                      </div>
+                      <hr class="my-4">
+                      
+                      <% @cart_items.group_by(&:item_name).each do |name, items| %>
+
+                      <div class="row mb-4 d-flex justify-content-between align-items-center">
+                        <div class="col-md-2 col-lg-2 col-xl-2">
+                          <%= render partial: 'items/image' %>
+                        </div>
+
+                      <div class="col-md-3 col-lg-3 col-xl-3">
+                        <h6 class="text-muted"><%= items.first.item.category.name %></h6>
+                        <h6 class="text-black mb-0"><%= items.first.item.name %></h6>
+                      </div>
+
+                      <div class="col-md-3 col-md-3 col-md-2 d-flex">
+                        <%= button_to cart_item_path(item_id: items.first.item.id), class: "btn btn-link p-2", method: :delete, data: { turbo: false } do %>
+                          <i class="fas fa-minus"></i>
+                        <% end %>
+
+                        <%= number_field_tag :quantity_total, items.sum(&:quantity), class: "form-control form-control-md text-center", readonly: true %>
+                        
+                        <%= button_to cart_items_path(item_id: items.first.item.id), class: "btn btn-link p-2", method: :post, data: { turbo: false } do %> 
+                          <i class="fas fa-plus"></i>
+                        <% end %>
+                      </div>
+
+                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                        <h6 class="mb-0"><%= items.first.price %> </h6>
+                      </div>
+
+                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                      </div>
+
+                    </div>
+                    <% end %>
+
+                    <hr class="my-4">
+
+                    <div class="pt-5">
+                      <%= button_to "Vider le panier", @cart, method: :delete, class:"btn btn-danger btn-sm btn-block" %>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-4 bg-grey">
+                    <div class="p-5">
+                      <h3 class="fw-bold mb-5 mt-2 pt-1">Récapitulatif</h3>
+                      <hr class="my-4">
+
+                <div class="d-flex justify-content-between mb-4">
+                  <h5 class="text">Quantité <%= @cart.cart_items_number %></h5>
+                  <h5> Montant <%= @cart.total_amount %> € </h5>
+                </div>
+
+                <h5 class="text-uppercase mb-3">Retrait</h5>
+
+                <div class="mb-5">
+                  <div class="form-outline">
+                    <%= text_area_tag("", nil, class: "form-control form-control-lg", placeholder:"Précisez une allergie ou autre...") %>
+                    <label class="form-label" for="form3Examplea2"></label>
+                  </div>
+                </div>
+            
+                <hr class="my-4">
+
+                    <div class="d-flex justify-content-between mb-5">
+                      <h5 class="text-uppercase">Total</h5>
+                      <p><%= @cart.total_amount %> € </h5>
+                    </div>
+
+                    <%= button_to "Commander", checkouts_create_path, target: :_blank, class:"btn btn-primary btn-lg btn-block" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <%# Display cart items %>
-  <% @cart_items.group_by(&:item_name).each do | name, items| %>
-    <div class="row g-3 mb-3 align-items-center">
-      <div class="col-sm-1 ">
-        <%= render partial: 'items/image' %>
-      </div>
-      <div class="col-sm-2 ">
-        <%= items.first.item.name %>
-      </div>
-      <div class="col-sm-2">
-        Price:<%= items.first.price  %> 
-      </div>
-      <div class="col-sm-2">
-        Quantity: <%= items.sum(&:quantity) %>
-      </div>
-      <div class="col-sm-1">
-        <%= button_to "+", cart_items_path(item_id: items.first.id), class: "btn btn-info btn-block", method: :post, data: { turbo: false } %> 
-      </div>
-      <div class="col-sm-1">
-        <%= button_to "-", cart_items_path(item_id: items.first.id), class: "btn btn-info btn-block", method: :delete, data: { turbo: false } %> 
-      </div>
-    </div>
-
-
-    <% end %>
-
-    <div class="col-sm-2">
-      Total: <%= @cart.total_amount %> €
-    </div>
-
-  <%# Display delete cart button %>
-  <%= button_to "Place Order", checkouts_create_path, target: :_blank %>
-  <%= button_to "Delete Cart", @cart, method: :delete %>
-</div>
+</section>

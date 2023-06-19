@@ -40,7 +40,7 @@ class CartsController < ApplicationController
   end
   
   def destroy
-    @cart = Cart.find(params[:id]).destroy
+    @cart.destroy!
 
     respond_to do |format|
       format.html { redirect_to carts_url, notice: "Cart was successfully destroyed." }

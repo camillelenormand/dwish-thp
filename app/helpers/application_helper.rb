@@ -30,28 +30,23 @@ module ApplicationHelper
 
 
   def navbar_cart_path
-    @cart = Cart.find_by(session[:cart_id])
+    @cart = Cart.find(session[:cart_id])
+    puts "cart #{@cart}"
       if @cart.present? 
-        my_cart_path=cart_path(@cart&.id)
+        my_cart_path = cart_path(@cart&.id)
+        puts "my_cart_path: #{my_cart_path}, cart_id: #{session[:cart_id]}"
       else
-        my_cart_path=items_path
+        my_cart_path = items_path
+        puts "my_cart_path: #{my_cart_path}, cart_id: #{session[:cart_id]}"
       end
       my_cart_path  
   end
 
-
   def initialize_cart
-    puts "current_user :#{current_user}"
-    puts "user_id: #{ @current_user.id}"
-    @cart ||= Cart.find_by(id: session[:cart_id])
-    puts "cart: #{@cart}"
-  
-   if @cart.nil?
-     @cart = Cart.create(user_id: @current_user.id, status: 0)
-     puts "cart: #{@cart}"
-     session[:cart_id] = @cart.id
-     puts "session: #{session[:cart_id]}"
-   end
+    @cart = Cart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    @cart = Cart.create(user_id: current_user&.id, status: 'in_progress') 
+    session[:cart_id] = @cart.id
   end
 
 end

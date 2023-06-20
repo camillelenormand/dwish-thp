@@ -83,6 +83,6 @@ Rails.application.configure do
   config.active_record.default_timezone = :utc
 
   # Config urls for paygreen web service
-  config.return_url = "http://localhost:3000/checkout/success"
-  config.cancel_url = "http://localhost:3000/checkout/cancel"
+  config.return_url = "http://localhost:3000/checkouts/success"
+  config.cancel_url = "http://localhost:3000/checkouts/cancel"
 end

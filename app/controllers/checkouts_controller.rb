@@ -69,6 +69,7 @@ class CheckoutsController < ApplicationController
   end
 
   def cancel
+    po_id = params[:po_id]
   end
 
   private

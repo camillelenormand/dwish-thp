@@ -1,7 +1,12 @@
 class CheckoutsController < ApplicationController
   before_action :authenticate_user!
-
+  begin
   include PaygreenService
+  rescue NameError => e
+    puts "PaygreenService not found"
+    render json: { message: 'error', error: e.message }
+  end
+
 
   def create
 

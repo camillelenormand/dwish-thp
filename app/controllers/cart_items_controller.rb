@@ -40,7 +40,7 @@ class CartItemsController < ApplicationController
 
   def create
     begin
-      @cart = Cart.find(session[:cart_id])
+      @cart = Cart.find_by(session[:cart_id])
       puts "cart found, id: #{session[:cart_id]}"
   
       @item = Item.find(params[:item_id])

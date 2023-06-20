@@ -68,7 +68,7 @@ class CartItemsController < ApplicationController
 
     # DELETE /cart_items/1 or /items/1.json
     def destroy
-      @cart = Cart.find_by_id(session[:cart_id])
+      @cart = Cart.find(session[:cart_id])
       @cart_item = CartItem.where(cart_id: @cart).find_by(item_id: params[:item_id])
       puts "cart item found, id: #{params[:item_id]}" 
       @cart_item.destroy
@@ -80,20 +80,6 @@ class CartItemsController < ApplicationController
     end
 
   private
-
-  def initialize_cart
-    puts "current_user :#{current_user}"
-    puts "user_id: #{ @current_user.id}"
-    @cart ||= Cart.find_by(id: session[:cart_id])
-    
-  
-   if @cart.nil?
-     @cart = Cart.create(user_id: @current_user.id, status: 0)
-     puts "cart: #{@cart}"
-     session[:cart_id] = @cart.id
-     puts "session: #{session[:cart_id]}"
-   end
-  end
 
 
   def cart_item_params

@@ -1,5 +1,6 @@
 class CheckoutsController < ApplicationController
   before_action :authenticate_user!
+
   begin
   include PaygreenService
   rescue NameError => e
@@ -38,7 +39,7 @@ class CheckoutsController < ApplicationController
     end
 
     begin
-      @order = Order.create!(user_id: current_user.id, status: "draft", amount: @cart.total_amount, payment_order_id: nil, cart_id: @cart.id)
+      @order = Order.create!(user_id: @user.id, status: "draft", amount: @cart.total_amount, payment_order_id: nil, cart_id: @cart.id)
       puts "order created, order id: #{@order.id}, order amount: #{@order.amount}}, status: #{@order.status}}"
     rescue ActiveRecord::RecordInvalid => e
       puts e.record.errors.full_messages
@@ -53,7 +54,7 @@ class CheckoutsController < ApplicationController
       puts "payment order created"
       begin
         @order.update!(payment_order_id: new_payment_order[:payment_order_id])
-        puts "order updated with payment order id"
+        puts "order updated with payment order id, order id: #{@order.id}, payment order id: #{@order.payment_order_id}"
       rescue ActiveRecord::RecordInvalid => e
         puts e.record.errors.full_messages
         render json: { message: 'error' }

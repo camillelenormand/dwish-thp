@@ -1,7 +1,6 @@
 class CartItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_cart_item
-  before_action :set_cart
+
 
   def index
     begin 
@@ -41,7 +40,7 @@ class CartItemsController < ApplicationController
 
   def create
     begin
-      @cart = Cart.find_by(session[:cart_id])
+      @cart = Cart.find(session[:cart_id])
       puts "cart found, id: #{session[:cart_id]}"
   
       @item = Item.find(params[:item_id])
@@ -81,18 +80,23 @@ class CartItemsController < ApplicationController
 
   private
 
-  def set_cart
-    @cart = Cart.find_by(session[:cart_id])
-    puts "cart found, id: #{session[:cart_id]}"
-  rescue ActiveRecord::RecordNotFound => e
-    render json: { message: 'error', error: e.record.errors.full_messages, status: :unprocessable_entity }
-  end
+  def initialize_cart
+    puts "current_user :#{current_user}"
+    puts "user_id: #{ @current_user.id}"
+    @cart ||= Cart.find_by(id: session[:cart_id])
+    
   
-  def set_cart_item
-    @cart_item = CartItem.where(cart_id: @cart)
+   if @cart.nil?
+     @cart = Cart.create(user_id: @current_user.id, status: 0)
+     puts "cart: #{@cart}"
+     session[:cart_id] = @cart.id
+     puts "session: #{session[:cart_id]}"
+   end
   end
+
 
   def cart_item_params
     params.require(:cart_item).permit(:cart_id, :item_id, :quantity, :price)
   end
+
 end

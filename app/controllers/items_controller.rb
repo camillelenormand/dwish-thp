@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :initialize_cart
   helper_method :generate_cart_total_amount
 
   # GET /items or /items.json

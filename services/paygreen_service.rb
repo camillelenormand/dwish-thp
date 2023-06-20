@@ -31,8 +31,18 @@ module PaygreenService
   def self.create_payment_order(amount, first_name, last_name, email, phone, user_id)
     token = @token || authenticate
     shop_id = ENV["PAYGREEN_SHOP_ID"]
-    return_url = URI("http://localhost:3000/checkouts/success")
-    cancel_url = URI("http://localhost:3000/checkouts/cancel")
+    if Rails.env.production?
+      return_url = URI(Rails.application.config.return_url)
+      cancel_url = URI(Rails.application.config.cancel_url)
+    elsif Rails.env.development?
+      return_url = URI(Rails.application.config.return_url)
+      cancel_url = URI(Rails.application.config.cancel_url)
+    elsif Rails.env.test?
+      return_url = URI(Rails.application.config.return_url)
+      cancel_url = URI(Rails.application.config.cancel_url)
+    else
+      return "Error: Rails.env not set"
+    end
 
     url = URI("https://sb-api.paygreen.fr/payment/payment-orders")
 

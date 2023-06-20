@@ -4,7 +4,7 @@ class CartItemsController < ApplicationController
 
   def index
     begin 
-    @cart = Cart.find_by(session[:cart_id])
+    @cart = Cart.find(session[:cart_id])
     puts "cart found, id: #{session[:cart_id]}"
     rescue ActiveRecord::RecordNotFound => e
       e.record.errors.full_messages
@@ -68,7 +68,9 @@ class CartItemsController < ApplicationController
 
     # DELETE /cart_items/1 or /items/1.json
     def destroy
+      @cart = Cart.find_by_id(session[:cart_id])
       @cart_item = CartItem.where(cart_id: @cart).find_by(item_id: params[:item_id])
+      puts "cart item found, id: #{params[:item_id]}" 
       @cart_item.destroy
   
       respond_to do |format|
@@ -76,7 +78,6 @@ class CartItemsController < ApplicationController
         format.json { head :no_content, status: :ok }
       end
     end
-
 
   private
 

@@ -30,15 +30,28 @@ module ApplicationHelper
 
 
   def navbar_cart_path
-    @cart=Cart.find_by(user_id: current_user.id)
-    
+    @cart = Cart.find_by(session[:cart_id])
       if @cart.present? 
         my_cart_path=cart_path(@cart&.id)
       else
         my_cart_path=items_path
       end
       my_cart_path  
+  end
+
+
+  def initialize_cart
+    puts "current_user :#{current_user}"
+    puts "user_id: #{ @current_user.id}"
+    @cart ||= Cart.find_by(id: session[:cart_id])
+    puts "cart: #{@cart}"
   
+   if @cart.nil?
+     @cart = Cart.create(user_id: @current_user.id, status: 0)
+     puts "cart: #{@cart}"
+     session[:cart_id] = @cart.id
+     puts "session: #{session[:cart_id]}"
+   end
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_06_18_100804) do
+ActiveRecord::Schema[7.1].define(version: 2023_06_19_162952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,10 +58,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_06_18_100804) do
     t.integer "status", default: 0, null: false
     t.decimal "amount", precision: 10, scale: 2, null: false
     t.bigint "user_id", null: false
+    t.bigint "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "payment_order_id"
-    t.bigint "cart_id"
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -79,6 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_06_18_100804) do
     t.boolean "is_admin", default: false
     t.boolean "is_active", default: true
     t.boolean "is_deleted", default: false
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -87,5 +89,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_06_18_100804) do
   add_foreign_key "cart_items", "items"
   add_foreign_key "carts", "users"
   add_foreign_key "items", "categories"
+  add_foreign_key "orders", "carts"
   add_foreign_key "orders", "users"
 end

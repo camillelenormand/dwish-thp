@@ -61,4 +61,13 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Time zone config
+  config.time_zone = 'Paris'
+  config.active_record.default_timezone = :utc
+
+
+  # Config urls for paygreen web service
+  config.return_url = "http://dwish-staging.herokuapp.com/checkouts/success"
+  config.cancel_url = "http://dwish-staging.herokuapp.com/checkouts/cancel"
 end

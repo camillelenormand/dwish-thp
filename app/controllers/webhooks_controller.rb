@@ -4,7 +4,7 @@ class WebhooksController < ApplicationController
   def create
       puts "-------- webhook received ---------"
     order = Order.find_by(payment_order_id: params.dig(:id))
-      puts "-------- order found: #{order}, order id: #{order.id} ---------"
+      puts "-------- order found: #{params.dig(:id)} ---------"
 
     if params.dig(:status) == 'payment_order.successed'
       

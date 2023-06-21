@@ -2,7 +2,7 @@ class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-      puts "-------- webhook received ---------"
+    puts "-------- webhook received ---------"
     order = Order.find_by(payment_order_id: params.dig(:id))
 
     if params.dig(:status) == 'payment_order.successed'

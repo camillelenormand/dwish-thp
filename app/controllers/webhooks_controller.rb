@@ -2,9 +2,8 @@ class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-      puts "-------- webhook received ---------"
+    puts "-------- webhook received ---------"
     order = Order.find_by(payment_order_id: params.dig(:id))
-      puts "-------- order found: #{order}, order id: #{order.id} ---------"
 
     if params.dig(:status) == 'payment_order.successed'
       
@@ -33,6 +32,7 @@ class WebhooksController < ApplicationController
     # delete cart 
     begin
       cart.destroy!
+      session[:cart_id] = []
       puts "Cart destroyed"
     rescue ActiveRecord::RecordInvalid => e
       puts "Cart not updated"

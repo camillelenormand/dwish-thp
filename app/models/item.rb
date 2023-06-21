@@ -1,7 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :category
   has_many :cart_items, dependent: :destroy
-  has_many :carts, through: :cart_items
 
   validates :name, presence: true
   validates :price, presence: true
@@ -15,5 +14,15 @@ class Item < ApplicationRecord
   # with: %r{\.(gif|jpg|png)\Z}i,
  # }
 
+
+
+  private
+
+  def not_referenced_by_any_cart_item
+    unless cart_items.empty?
+      errors.add(:base, "Cart items present")
+      throw :abort
+    end
+  end
 
 end

@@ -1,15 +1,13 @@
 class Cart < ApplicationRecord
   validates :user_id, presence: true
-  enum status: { in_progress: 0, paid: 1, cancelled: 2, expired: 3 }
+  enum status: { in_progress: 0, validated: 1, paid: 2, cancelled: 3, expired: 4 }
   validates :status, presence: true
   validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :cart_items, foreign_key: 'cart_id', class_name: 'CartItem', dependent: :destroy
   has_many :items, through: :cart_items, source: :item
   
-  has_many :cart_items, dependent: :destroy
   belongs_to :user
-
 
   def cart_items_number
     self.cart_items.count
@@ -33,5 +31,6 @@ class Cart < ApplicationRecord
   def total_amount
     cart_items.to_a.sum { |item| item.total_price }
   end
+
 
 end

@@ -1,87 +1,55 @@
 class CheckoutsController < ApplicationController
   before_action :authenticate_user!
-
-  begin
   include PaygreenService
-  rescue NameError => e
-    puts "PaygreenService not found"
-    render json: { message: 'error', error: e.message }
+
+  def new
+
   end
 
-
   def create
-
-    begin 
-      @cart = Cart.find(session[:cart_id])
-      puts "Cart found #{@cart.id}"
-    rescue ActiveRecord::RecordNotFound => e
-      puts "Cart not found"
-      render json: { message: 'error' }
-      return
-    end
-
-    begin 
-      @cart_items = @cart.cart_items
-      puts "Cart items found"
-    rescue ActiveRecord::RecordNotFound => e
-      puts "Cart items not found"
-      render json: { message: 'error' }
-      return
-    end
-
-    begin
-      @user = current_user
-      puts "User found #{@user.id}"
-    rescue ActiveRecord::RecordNotFound => e
-      puts "User not found"
-      render json: { message: 'error' }
-      return
-    end
-
-    begin
-      @order = Order.create!(user_id: @user.id, status: "draft", amount: @cart.total_amount, payment_order_id: nil, cart_id: @cart.id)
-      puts "order created, order id: #{@order.id}, order amount: #{@order.amount}}, status: #{@order.status}}"
-    rescue ActiveRecord::RecordInvalid => e
-      puts e.record.errors.full_messages
-      render json: { message: 'error' }
-      return
-    end
+    @cart = Cart.where(user_id: current_user.id, status: "in_progress").last
+    @user = current_user
+    @cart_items = CartItem.where(cart_id: @cart.id)
     
-    new_payment_order = PaygreenService.create_payment_order(@cart.total_amount.to_i, @user.first_name, @user.last_name, @user.email, @user.phone, @user.id)
+    new_payment_order = PaygreenService.create_payment_order(@cart.total_amount, @user.first_name, @user.last_name, @user.email)
     
-    # Check if payment order was created
     if new_payment_order[:hosted_payment_url] && new_payment_order[:payment_order_id]
-      puts "payment order created"
-      begin
-        @order.update!(payment_order_id: new_payment_order[:payment_order_id])
-        puts "order updated with payment order id, order id: #{@order.id}, payment order id: #{@order.payment_order_id}"
-      rescue ActiveRecord::RecordInvalid => e
-        puts e.record.errors.full_messages
-        render json: { message: 'error' }
-        return
-      end
-        
-      redirect_to new_payment_order[:hosted_payment_url], allow_other_host: true
+      @cart.update(payment_order_id: new_payment_order[:payment_order_id], status: "in_progress")
+      redirect_to new_payment_order[:hosted_payment_url], notice: "You will be redirected to the payment page", allow_other_host: true
     else
-      redirect_to cart_path(@cart), alert: "Une erreur est survenue, veuillez réessayer."
+      redirect_to cart_path(@cart), alert: "An error occurred, please try again."
     end
-
   end
 
   def success
-    po_id = params[:po_id]
-    status = params[:status]
-    @order = Order.find_by(payment_order_id: po_id)
+    @cart = Cart.find(params[:cart_id])
+    payment_order_id = @cart.payment_order_id
+    token = PaygreenService.authenticate
+    payment_order = PaygreenService.get_payment_order(payment_order_id, token)
+    
+    if payment_order[:transaction_status] == 'transaction.successed'
+      @cart.update(status: "paid")
+      redirect_to checkout_success_path, notice: "Your order has been successfully validated"
+    end
   end
 
   def cancel
-    po_id = params[:po_id]
+    payment_order = PaygreenService.get_payment_order(@cart.payment_order_id, PaygreenService.authenticate)
+    if payment_order[:transaction_status] == 'transaction.canceled'
+      @cart.update(status: "canceled")
+      redirect_to checkout_cancel_path, alert: "The payment has been canceled"
+    else
+      redirect_to checkout_error_path, alert: "An error occurred, please try again."
+    end
   end
 
-  private
-
-  def checkout_params
-    params.require(:checkout).permit(:cart_id, :payment_order_id, :status, :po_id)
+  def expired
+    payment_order = PaygreenService.get_payment_order(@cart.payment_order_id, PaygreenService.authenticate)
+    if payment_order[:transaction_status] == 'transaction.expired'
+      @cart.update(status: "expired")
+      redirect_to checkout_error_path, alert: "The payment has expired"
+    else
+      redirect_to checkout_error_path, alert: "An error occurred, please try again."
+    end
   end
-
 end

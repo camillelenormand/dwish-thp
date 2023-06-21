@@ -28,21 +28,9 @@ module PaygreenService
 
   end
 
-  def self.create_payment_order(amount, first_name, last_name, email, phone, user_id)
+  def self.create_payment_order(amount, first_name, last_name, email)
     token = @token || authenticate
     shop_id = ENV["PAYGREEN_SHOP_ID"]
-    if Rails.env.production?
-      return_url = URI(Rails.application.config.return_url)
-      cancel_url = URI(Rails.application.config.cancel_url)
-    elsif Rails.env.development?
-      return_url = URI(Rails.application.config.return_url)
-      cancel_url = URI(Rails.application.config.cancel_url)
-    elsif Rails.env.test?
-      return_url = URI(Rails.application.config.return_url)
-      cancel_url = URI(Rails.application.config.cancel_url)
-    else
-      return "Error: Rails.env not set"
-    end
 
     url = URI("https://sb-api.paygreen.fr/payment/payment-orders")
 
@@ -59,14 +47,10 @@ module PaygreenService
       merchant_initiated: false,
       mode: "instant",
       partial_allowed: false,
-      return_url: return_url,
-      cancel_url: cancel_url,
       buyer: {
         first_name: first_name,
         last_name: last_name,
-        email: email,
-        phone: phone,
-        external_id: user_id
+        email: email
       },
       amount: amount * 100,
       shop_id: shop_id
@@ -76,15 +60,13 @@ module PaygreenService
     if response.is_a?(Net::HTTPSuccess)
       hosted_payment_url = JSON.parse(response.body)["data"]["hosted_payment_url"]
       payment_order_id = JSON.parse(response.body)["data"]["id"]
-      payment_order_status = JSON.parse(response.body)["data"]["status"]
       return {
         hosted_payment_url: hosted_payment_url,
         payment_order_id: payment_order_id,
-        payment_order_status: payment_order_status
         
       }
     else
-      raise "API request failed with status: #{response.code}"
+      raise "Error: #{response.body}"
     end
 
   end
@@ -115,42 +97,12 @@ module PaygreenService
         payment_order_id: payment_order_id,
         transaction_id: transaction_id,
         transaction_status: transaction_status,
+        operation_id: operation_id,
       }
     else
       raise "Error: #{response.body}"
     end
-  end
 
-  def self.create_buyer(first_name, last_name, email, phone_number, user_id)
-    token = @token || authenticate
-    url = URI("#{API_BASE_URL}/payment/buyers")
-
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-
-    request = Net::HTTP::Post.new(url)
-    request["accept"] = 'application/json'
-    request["content-type"] = 'application/json'
-    request["authorization"] = "Bearer #{token}"
-    
-    request.body = {
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      phone_number: phone_number,
-      external_id: user_id
-    }.to_json
-
-    response = http.request(request)
-    
-    if response.is_a?(Net::HTTPSuccess)
-      buyer_id = JSON.parse(response.body)["data"]["id"]
-      return {
-        buyer_id: buyer_id
-      }
-    else
-      raise "Error: #{response.body}"
-    end
   end
 
 end

@@ -69,20 +69,16 @@ Item.delete_all
  Item.create!(name: "Bière Maïre (IPA)" ,description:"Brasserie Zoumai - Btl 33 cl" , price:4.50, quantity:1000 , category_id:5) 
  Item.create!(name: "Bière Gaby (blanche Combawa) " ,description:"Brasserie Zoumai - Btl 33 cl" , price:4.50, quantity:1000 , category_id:5) 
 
-#creation User
- User.create!(email: "test1@test.com", password: "test1@test.com", first_name:"test1_firstname" , last_name:"test1_lastname", phone: "01 34 23 41 00")
- User.create!(email: "test2@test.com", password: "test2@test.com", first_name:"test2_firstname" , last_name:"test2_lastname", phone: "01 34 23 41 01")
+ #creation User
+ User.create!(email: "test1@test.com", password: "test1@test.com", first_name:"test2_fitsname" , last_name:"test2_lastname", phone: "01 34 23 41 00")
+ User.create!(email: "test2@test.com", password: "test2@test.com", first_name:"test2_fitsname" , last_name:"test2_lastname", phone: "01 34 23 41 01")
 
-#creation User Admin 
-User.create!(email: "admin@test.com", password: "admin@test.com", first_name:"admin" , last_name:"admin", phone: "01 34 23 41 03", admin: true)
-
-#creation cart + items added
- #Cart.create!(user_id: 2, status: "in_progress")
- #CartItem.create!(cart_id: 2, item_id: 2, quantity: 3, price: 9.50)
- #CartItem.create!(cart_id: 2, item_id: 1, quantity: 1, price: 9.50)
+ # Cart and CartItem creation
+ Cart.create!(user_id: 1, status: "in_progress")
+ CartItem.create!(cart_id: 1, item_id: 1, quantity: 1, price: 8.50)
 
 
-# Order creation
-
-# Order.create!(user_id: 2, status: "paid", amount: 19.00, cart_id: 1)
+ Cart.create!(user_id: 2, status: "in_progress")
+ CartItem.create!(cart_id: 2, item_id: 2, quantity: 3, price: 9.50)
+ CartItem.create!(cart_id: 2, item_id: 1, quantity: 1, price: 9.50)
 

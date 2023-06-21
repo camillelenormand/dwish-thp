@@ -15,7 +15,7 @@ Rails.application.configure do
   # this is usually not necessary, and can slow down your test suite. However, it's
   # recommended that you enable it in continuous integration systems to ensure eager
   # loading is working properly before deploying your code.
-  config.eager_load = false
+  config.eager_load = ENV["CI"].present?
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
@@ -61,13 +61,4 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
-
-  # Time zone config
-  config.time_zone = 'Paris'
-  config.active_record.default_timezone = :utc
-
-
-  # Config urls for paygreen web service
-  config.return_url = "http://dwish-staging.herokuapp.com/checkouts/success"
-  config.cancel_url = "http://dwish-staging.herokuapp.com/checkouts/cancel"
 end

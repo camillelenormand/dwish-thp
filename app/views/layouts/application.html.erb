@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
   <head>
     <title>Dwish</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -16,12 +16,12 @@
     <header>
        <%= render partial: 'shared/navbar' %>
        <%= render partial: 'shared/flash' %>
+
     </header>
-    <main>
-      <%= yield %>
-    </main>
+    <%= yield %>
     <%= render partial: 'shared/footer'%>
   </body>
+  
 </html>
 
 </body>

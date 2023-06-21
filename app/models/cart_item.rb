@@ -9,12 +9,17 @@ class CartItem < ApplicationRecord
   belongs_to :cart
   belongs_to :item
 
-  def total_price
-    item.price * quantity
-  end
+  def find_item_name
+    item_name=(Item.find_by_id (self.item_id)).name
+  end 
 
-  def item_name
-    return item.name
+  def display_price(id)
+    Item.find_by_id(id.to_i).name
+    pp Item.find_by_id(id.to_i).name
+  end 
+
+  def total_price
+    item.price.to_i * quantity.to_i
   end
 
 end

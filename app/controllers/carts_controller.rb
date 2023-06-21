@@ -1,11 +1,11 @@
 class CartsController < ApplicationController
-  before_action :authenticate_user!
-  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
-  before_action :initialize_cart, only: [:show, :update, :destroy]
+  helper_method :display_name
+  helper_method :generate_cart_total_amount
+  include CartsHelper
   
-    def index
-      @carts = Cart.all
-    end
+  def index
+    @carts = Cart.all
+  end
 
   def show
     @cart = Cart.find(params[:id])
@@ -14,7 +14,7 @@ class CartsController < ApplicationController
   end
 
   def create
-    @cart = Cart.new(user_id: @current_user.id, status: "in_progress")
+    @cart = Cart.new(user_id: @current_user.id, status: 0)
     
     respond_to do |format|
       if @cart.save
@@ -46,21 +46,12 @@ class CartsController < ApplicationController
     @cart.destroy!
 
     respond_to do |format|
-      format.html { redirect_to items_path, notice: "Cart was successfully destroyed." }
+      format.html { redirect_to carts_url, notice: "Cart was successfully destroyed." }
       format.json { head :no_content }
     end
   end
   
 private
-
-def initialize_cart
-  @cart = Cart.find(params[:id])
-end
-
-def invalid_cart
-  logger.error "Attempt to access invalid cart #{params[:id]}"
-  redirect_to root_path, notice: "That cart doesn't exist"
-end
 
 def cart_params
   params.require(:cart).permit(:user_id, :status)

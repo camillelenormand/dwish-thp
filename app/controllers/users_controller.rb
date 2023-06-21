@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update]
-  after_action :welcome_email, only: [:create]
-
-  include PaygreenService
+  before_action :authenticate_user!, only: [:edit, :update, :create, :new]
 
   def index
     @users = User.all
@@ -10,7 +7,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @orders = Order.where(user_id: @user.id)
   end
 
   def new
@@ -21,16 +17,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    new_buyer = PaygreenService.create_buyer(params[:first_name], params[:last_name], params[:email], params[:phone_number], params[:user_id])
-    if new_buyer[:buyer_id]
-      render json: { buyer_id: new_buyer[:buyer_id] }
-    else
-      render json: { message: 'error' }
-    end
-  end
-
-  def welcome_send
-    UserMailer.welcome_email(self).deliver_now
+    
   end
 
   def update
@@ -43,14 +30,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def create_buyer
-     new_buyer = PaygreenService.create_buyer(params[:first_name], params[:last_name], params[:email], params[:phone_number], params[:user_id])
-     if new_buyer[:buyer_id]
-       render json: { buyer_id: new_buyer[:buyer_id] }
-     else
-       render json: { message: 'error' }
-     end
-  end
 
   private
 
@@ -61,7 +40,7 @@ class UsersController < ApplicationController
       :last_name, 
       :phone,
       :password,
-      :password_confirmation,
+      :password_confirmation
     )
   end
 

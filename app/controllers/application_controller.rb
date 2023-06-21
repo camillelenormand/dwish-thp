@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
   include ApplicationHelper
-  before_action :initialize_cart 
+
+  protect_from_forgery with: :exception
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   add_flash_types :info, :error, :warning, :success
-  
-  before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
 

@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   # webhooks
   post '/webhooks', to: 'webhooks#create'
 
-
+  # checkouts
   scope '/checkouts' do
     post 'create', to: 'checkouts#create', as: 'checkouts_create'
     get 'success', to: 'checkouts#success', as: 'checkouts_success'

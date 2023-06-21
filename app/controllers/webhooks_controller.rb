@@ -59,6 +59,7 @@ class WebhooksController < ApplicationController
     order = Order.find_by(payment_order_id: params.dig(:id))
     user = User.find(order.user_id)
     UserMailer.confirm_order_email(user, order).deliver_now
+    puts "Confirmation email sent"
   end
 
 end

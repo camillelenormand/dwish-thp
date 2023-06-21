@@ -37,7 +37,7 @@
                       </div>
 
                       <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0"><%= items.first.price %> </h6>
+                        <h6 class="mb-0"><%= items.first.price*(items.count) %> €</h6>
                       </div>
 
                     </div>
@@ -54,15 +54,15 @@
                       <hr class="my-4">
 
                 <div class="d-flex justify-content-between mb-4">
-                  <h5 class="text">Quantité <%= @cart.cart_items_number %></h5>
-                  <h5> Montant <%= @cart.total_amount %> € </h5>
+                  <h5 class="text">Quantité: <%= @cart.cart_items_number %></h5>
+                  <h5> Sous-total: <%= @cart.total_amount %> € </h5>
                 </div>
             
                 <hr class="my-4">
 
                     <div class="d-flex justify-content-between mb-5">
                       <h5 class="text-uppercase">Total</h5>
-                      <p><%= @cart.total_amount %> € </h5>
+                      <h5><%= @cart.total_amount %> € </h5>
                     </div>
 
                     <%= button_to "Payer", checkouts_create_path, target: :_blank, class:"btn btn-primary btn-lg btn-block" %>

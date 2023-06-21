@@ -94,4 +94,13 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Time zone config
+  config.time_zone = 'Paris'
+  config.active_record.default_timezone = :utc
+
+  # config for paygreen
+  config.return_url = "https://dwish.herokuapp.com/checkouts/success"
+  config.cancel_url = "https://dwish.herokuapp.com/checkouts/cancel"
+
 end

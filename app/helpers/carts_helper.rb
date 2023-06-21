@@ -7,4 +7,6 @@ module CartsHelper
   def display_name(id)
     Item.find_by(id: id)&.name
   end 
+
+
 end

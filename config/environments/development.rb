@@ -73,4 +73,16 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Letter opener config
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+
+  # Time zone config
+  config.time_zone = 'Paris'
+  config.active_record.default_timezone = :utc
+
+  # Config urls for paygreen web service
+  config.return_url = "http://localhost:3000/checkouts/success"
+  config.cancel_url = "http://localhost:3000/checkouts/cancel"
 end

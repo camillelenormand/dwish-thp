@@ -11,7 +11,7 @@
                         <h1 class="fw-bold mb-0 text-black">Votre panier</h1>
                       </div>
                       <hr class="my-4">
-                      
+                      <div id="Emptycart"></div>
                       <% @cart_items.group_by(&:item_name).each do |name, items| %>
 
                       <div class="row mb-4 d-flex justify-content-between align-items-center">
@@ -76,3 +76,15 @@
     </div>
   </div>
 </section>
+<script>
+  const cartItems = <%= @cart_items.to_json.html_safe %>;
+  if (cartItems.length === 0) {
+    const emptyCartMessage = document.createElement("h3");
+    emptyCartMessage.classList.add("text-center");
+    emptyCartMessage.classList.add("p-5");
+    emptyCartMessage.innerHTML = "Votre panier est vide 😕";
+
+    const cartMessage = document.getElementById("Emptycart");
+    Emptycart.appendChild(emptyCartMessage);
+  }
+</script>

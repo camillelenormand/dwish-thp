@@ -74,7 +74,7 @@ Item.delete_all
  User.create!(email: "test2@test.com", password: "test2@test.com", first_name:"test2_firstname" , last_name:"test2_lastname", phone: "01 34 23 41 01")
 
 #creation User Admin 
-User.create!(email: "admin@test.com", password: "admin@test.com", first_name:"admin" , last_name:"admin", phone: "01 34 23 41 03", admin: true)
+User.create!(email: "admin@test.com", password: "admin@test.comadmin@test.com", first_name:"admin" , last_name:"admin", phone: "01 34 23 41 03", admin: true)
 
 #creation cart + items added
  #Cart.create!(user_id: 2, status: "in_progress")

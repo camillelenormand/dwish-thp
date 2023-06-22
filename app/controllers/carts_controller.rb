@@ -9,8 +9,13 @@ class CartsController < ApplicationController
 
   def show
     @cart = Cart.find(params[:id])
-    @cart_items = @cart.cart_items
-    puts "cart_items: #{@cart_items}"
+    #test to validate cart is the last one created and belongs to the user
+    # if not ,redirected to items_path
+    if (current_user.id==@cart.user_id)&&(@cart.id==Cart.where(user_id: current_user.id ).last.id)
+       @cart_items = @cart.cart_items
+       else
+        redirect_to items_path, notice: "Désolé, accès non autorisé."
+    end    
   end
 
   def create
@@ -18,7 +23,7 @@ class CartsController < ApplicationController
     
     respond_to do |format|
       if @cart.save
-        format.html { redirect_to item_url(@cart), notice: "Item was successfully created." }
+        format.html { redirect_to item_url(@cart), notice: "Cart was successfully created." }
         format.json { render :show, status: :created, location: @cart }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,12 +59,12 @@ class CartsController < ApplicationController
 private
 
 def initialize_cart
-  @cart = Cart.find(params[:id])
+@cart = Cart.find(params[:id]) 
 end
 
 def invalid_cart
   logger.error "Attempt to access invalid cart #{params[:id]}"
-  redirect_to root_path, notice: "That cart doesn't exist"
+  redirect_to root_path, notice: "Désolé, panier inexistant."
 end
 
 def cart_params

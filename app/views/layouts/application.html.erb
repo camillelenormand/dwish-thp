@@ -19,8 +19,12 @@
        <%= render partial: 'shared/flash' %>
     </header>
     <main>
+      <div class="p-3 mb-2 bg-dark text-white text-center mb-5"> <%=link_to "Nouveau ! Commander en Click & Collect sur notre site!", items_path, style: "color: #fff; text-decoration: none;"%> </div>
       <%= yield %>
+      <%= render partial: 'shared/map'%>
     </main>
     <%= render partial: 'shared/footer'%>
   </body>
+  
 </html>
+

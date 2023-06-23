@@ -103,4 +103,9 @@ Rails.application.configure do
   config.return_url = "https://dwish.herokuapp.com/checkouts/success"
   config.cancel_url = "https://dwish.herokuapp.com/checkouts/cancel"
 
+
+  # Config urls for mailer
+  config.action_mailer.default_url_options = { :host => "dwish.herokuapp.com" }
+
+
 end

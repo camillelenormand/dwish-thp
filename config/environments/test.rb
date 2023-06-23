@@ -67,6 +67,10 @@ Rails.application.configure do
   config.active_record.default_timezone = :utc
 
 
+  # Config urls for mailer
+  config.action_mailer.default_url_options = { :host => "dwish-staging.herokuapp.com" }
+
+
   # Config urls for paygreen web service
   config.return_url = "http://dwish-staging.herokuapp.com/checkouts/success"
   config.cancel_url = "http://dwish-staging.herokuapp.com/checkouts/cancel"

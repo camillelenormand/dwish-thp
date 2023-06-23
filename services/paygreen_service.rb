@@ -7,8 +7,8 @@ module PaygreenService
   API_BASE_URL = 'https://sb-api.paygreen.fr'.freeze
 
   def self.authenticate
-    shop_id = ENV["PAYGREEN_SHOP_ID"]
-    secret_key = ENV["PAYGREEN_SECRET_KEY"]
+    shop_id = ENV['PAYGREEN_SHOP_ID']
+    secret_key = ENV['PAYGREEN_SECRET_KEY']
 
     url = URI("#{API_BASE_URL}/auth/authentication/#{shop_id}/secret-key")
 
@@ -30,7 +30,7 @@ module PaygreenService
 
   def self.create_payment_order(amount, first_name, last_name, email, phone, user_id)
     token = @token || authenticate
-    shop_id = ENV["PAYGREEN_SHOP_ID"]
+    shop_id = ENV['PAYGREEN_SHOP_ID']
     if Rails.env.production?
       return_url = URI(Rails.application.config.return_url)
       cancel_url = URI(Rails.application.config.cancel_url)
@@ -131,7 +131,7 @@ module PaygreenService
     request = Net::HTTP::Post.new(url)
     request["accept"] = 'application/json'
     request["content-type"] = 'application/json'
-    request["authorization"] = "Bearer #{token}"
+    request["authorization"] = 'Bearer #{token}'
     
     request.body = {
       first_name: first_name,

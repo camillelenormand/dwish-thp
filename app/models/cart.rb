@@ -9,7 +9,7 @@ class Cart < ApplicationRecord
   
   has_many :cart_items, dependent: :destroy
   belongs_to :user
-
+  belongs_to :order, optional: true
 
   def cart_items_number
     self.cart_items.count

@@ -8,9 +8,7 @@ class CheckoutsController < ApplicationController
     render json: { message: 'error', error: e.message }
   end
 
-
   def create
-
     begin 
       @cart = Cart.find(session[:cart_id])
       puts "Cart found #{@cart.id}"
@@ -40,7 +38,7 @@ class CheckoutsController < ApplicationController
 
     begin
       @order = Order.create!(user_id: @user.id, status: "draft", amount: @cart.total_amount, payment_order_id: nil, cart_id: @cart.id)
-      puts "order created, order id: #{@order.id}, order amount: #{@order.amount}}, status: #{@order.status}}"
+      puts "order created, order id: #{@order.id}, order amount: #{@order.amount}, status: #{@order.status}"
     rescue ActiveRecord::RecordInvalid => e
       puts e.record.errors.full_messages
       render json: { message: 'error' }
@@ -48,6 +46,7 @@ class CheckoutsController < ApplicationController
     end
     
     new_payment_order = PaygreenService.create_payment_order(@cart.total_amount.to_i, @user.first_name, @user.last_name, @user.email, @user.phone, @user.id)
+    p new_payment_order
     
     # Check if payment order was created
     if new_payment_order[:hosted_payment_url] && new_payment_order[:payment_order_id]
@@ -71,7 +70,6 @@ class CheckoutsController < ApplicationController
   def success
     po_id = params[:po_id]
     status = params[:status]
-    @order = Order.find_by(payment_order_id: po_id)
   end
 
   def cancel

@@ -12,6 +12,7 @@ module DwishThp
     config.load_defaults 7.1
     config.i18n.default_locale = :fr
     config.autoload_paths << "#{Rails.root}/services"
+    config.action_mailer.delivery_method = :mailjet
 
     # Configuration for the application, engines, and railties goes here.
     #

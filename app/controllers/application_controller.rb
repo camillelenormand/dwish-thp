@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordInvalid, with: :show_errors  
   protect_from_forgery with: :exception
   include ApplicationHelper
   before_action :initialize_cart 

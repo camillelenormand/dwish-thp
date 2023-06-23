@@ -99,7 +99,7 @@ module PaygreenService
     request = Net::HTTP::Get.new(url)
     request["accept"] = 'application/json'
     request["content-type"] = 'application/json'
-    request["authorization"] = "Bearer #{token}"
+    request["authorization"] = 'Bearer #{token}'
 
     response = http.request(request)
 

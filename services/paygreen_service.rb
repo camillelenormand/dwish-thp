@@ -8,17 +8,22 @@ module PaygreenService
 
   def self.authenticate
     shop_id = ENV['PAYGREEN_SHOP_ID']
+    p shop_id
     secret_key = ENV['PAYGREEN_SECRET_KEY']
+    p secret_key
 
     url = URI("#{API_BASE_URL}/auth/authentication/#{shop_id}/secret-key")
+    p url
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     
     request = Net::HTTP::Post.new(url)
     request["Authorization"] = secret_key
+    p request
     
     response = http.request(request)
+    p response
 
     if response.is_a?(Net::HTTPSuccess)
       @token = JSON.parse(response.body)["data"]["token"]
@@ -30,16 +35,25 @@ module PaygreenService
 
   def self.create_payment_order(amount, first_name, last_name, email, phone, user_id)
     token = @token || authenticate
+    p token
     shop_id = ENV['PAYGREEN_SHOP_ID']
+    p shop_id
+
     if Rails.env.production?
       return_url = URI(Rails.application.config.return_url)
+      p return_url
       cancel_url = URI(Rails.application.config.cancel_url)
+      p cancel_url
     elsif Rails.env.development?
       return_url = URI(Rails.application.config.return_url)
+      p return_url
       cancel_url = URI(Rails.application.config.cancel_url)
+      p cancel_url
     elsif Rails.env.test?
       return_url = URI(Rails.application.config.return_url)
+      p return_url
       cancel_url = URI(Rails.application.config.cancel_url)
+      p cancel_url
     else
       return "Error: Rails.env not set"
     end
@@ -72,7 +86,10 @@ module PaygreenService
       shop_id: shop_id
     }.to_json
 
+    p request.body
+
     response = http.request(request)
+    p response
     if response.is_a?(Net::HTTPSuccess)
       hosted_payment_url = JSON.parse(response.body)["data"]["hosted_payment_url"]
       payment_order_id = JSON.parse(response.body)["data"]["id"]

@@ -334,7 +334,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   letter_opener (~> 1.8)
-  mailjet (~> 1.7)
+  mailjet
   pg (~> 1.1)
   pry (~> 0.14.2)
   puma (>= 5.0)

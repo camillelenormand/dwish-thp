@@ -8,10 +8,11 @@ class CartsController < ApplicationController
     end
 
   def show
-    @cart = Cart.find(params[:id])
+    @cart = Cart.find(session[:cart_id])
+    puts "cart found, id: #{session[:cart_id]}"
     #test to validate cart is the last one created and belongs to the user
     # if not ,redirected to items_path
-    if (current_user.id==@cart.user_id)&&(@cart.id==Cart.where(user_id: current_user.id ).last.id)
+    if (current_user.id == @cart.user_id) && (@cart.id == Cart.where(user_id: current_user.id ).last.id)
        @cart_items = @cart.cart_items
        else
         redirect_to items_path, notice: "Désolé, accès non autorisé."

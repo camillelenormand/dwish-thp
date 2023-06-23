@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update]
+  before_action :authenticate_user!
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_user
   after_action :welcome_email, only: [:create]
 
   include PaygreenService
@@ -10,7 +11,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    if (current_user.id == @user.id) 
     @orders = Order.where(user_id: @user.id)
+    else 
+      redirect_to action: "show", id: current_user.id 
+    end
   end
 
   def new
@@ -65,6 +70,9 @@ class UsersController < ApplicationController
     )
   end
 
-
+  def invalid_user
+    logger.error "Attempt to access invalid user #{params[:id]}"
+    redirect_to action: "show", id: current_user.id 
+  end
 
 end

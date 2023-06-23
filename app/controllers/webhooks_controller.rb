@@ -32,7 +32,6 @@ class WebhooksController < ApplicationController
       cart.update!(status: "paid")
       puts "Cart updated --- status: #{cart.status}"
       session[:cart_id] = [] # empty session
-      session.clear
       puts "Cart session destroyed --- session: #{session[:cart_id]}"
       puts "Session: #{session}"
     rescue ActiveRecord::RecordInvalid => e

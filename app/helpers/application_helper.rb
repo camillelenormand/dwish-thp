@@ -44,6 +44,7 @@ module ApplicationHelper
 
   def initialize_cart
     @cart = Cart.find(session[:cart_id])
+    puts "cart found, id: #{session[:cart_id]}"
   rescue ActiveRecord::RecordNotFound
     @cart = Cart.create(user_id: current_user&.id, status: 'in_progress') 
     session[:cart_id] = @cart.id

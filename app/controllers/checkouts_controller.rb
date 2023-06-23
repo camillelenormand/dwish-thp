@@ -45,12 +45,8 @@ class CheckoutsController < ApplicationController
       return
     end
     
-    begin
-      new_payment_order = PaygreenService.create_payment_order(@cart.total_amount.to_i, @user.first_name, @user.last_name, @user.email, @user.phone, @user.id)
-      p new_payment_order
-    rescue PaygreenService::Error => e
-      return render json: { message: 'error', error: e.message }
-    end
+    new_payment_order = PaygreenService.create_payment_order(@cart.total_amount.to_i, @user.first_name, @user.last_name, @user.email, @user.phone, @user.id)
+    p new_payment_order
     
     # Check if payment order was created
     if new_payment_order[:hosted_payment_url] && new_payment_order[:payment_order_id]

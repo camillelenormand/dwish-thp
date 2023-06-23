@@ -20,7 +20,7 @@ module PaygreenService
     
     request = Net::HTTP::Post.new(url)
     request["Authorization"] = secret_key
-    p request
+    p "request: #{request}"
     
     response = http.request(request)
     p response
@@ -35,7 +35,6 @@ module PaygreenService
 
   def self.create_payment_order(amount, first_name, last_name, email, phone, user_id)
     token = @token || authenticate
-    p token
     shop_id = ENV['PAYGREEN_SHOP_ID']
     p shop_id
 
@@ -66,7 +65,8 @@ module PaygreenService
     request = Net::HTTP::Post.new(url)
     request["accept"] = 'application/json'
     request["content-type"] = 'application/json'
-    request["authorization"] = "Bearer #{token}"
+    request["authorization"] = "Bearer #{token}" 
+
     request.body = {
       auto_capture: true,
       currency: "eur",
@@ -86,10 +86,9 @@ module PaygreenService
       shop_id: shop_id
     }.to_json
 
-    p request.body
-
     response = http.request(request)
-    p response
+    puts response.read_body
+
     if response.is_a?(Net::HTTPSuccess)
       hosted_payment_url = JSON.parse(response.body)["data"]["hosted_payment_url"]
       payment_order_id = JSON.parse(response.body)["data"]["id"]

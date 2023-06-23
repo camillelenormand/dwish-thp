@@ -9,7 +9,7 @@ class WebhooksController < ApplicationController
     if params.dig(:status) == 'payment_order.successed'
       
     begin
-      order.save(status: "paid")
+      order.update!(status: "paid")
       puts "------ order updated --- status: #{order.status}"
     rescue ActiveRecord::RecordInvalid => e
       puts e.record.errors.full_messages
@@ -27,11 +27,14 @@ class WebhooksController < ApplicationController
       return
     end
 
-    # delete cart 
+    # update cart 
     begin
-      cart.destroy!
-      session[:cart_id] = []
-      puts "Cart destroyed"
+      cart.update!(status: "paid")
+      puts "Cart updated --- status: #{cart.status}"
+      session[:cart_id] = [] # empty session
+      session.clear
+      puts "Cart session destroyed --- session: #{session[:cart_id]}"
+      puts "Session: #{session}"
     rescue ActiveRecord::RecordInvalid => e
       puts "Cart not updated"
       puts e.record.errors.full_messages

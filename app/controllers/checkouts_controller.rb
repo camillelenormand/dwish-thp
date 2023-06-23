@@ -47,7 +47,11 @@ class CheckoutsController < ApplicationController
       return
     end
     
-    new_payment_order = PaygreenService.create_payment_order(@cart.total_amount.to_i, @user.first_name, @user.last_name, @user.email, @user.phone, @user.id)
+    begin
+      new_payment_order = PaygreenService.create_payment_order(@cart.total_amount.to_i, @user.first_name, @user.last_name, @user.email, @user.phone, @user.id)
+    rescue PaygreenService::Error => e
+      return render json: { message: 'error', error: e.message }
+    end
     
     # Check if payment order was created
     if new_payment_order[:hosted_payment_url] && new_payment_order[:payment_order_id]
@@ -71,7 +75,6 @@ class CheckoutsController < ApplicationController
   def success
     po_id = params[:po_id]
     status = params[:status]
-    @order = Order.find_by(payment_order_id: po_id)
   end
 
   def cancel

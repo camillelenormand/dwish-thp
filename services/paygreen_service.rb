@@ -131,7 +131,7 @@ module PaygreenService
     request = Net::HTTP::Post.new(url)
     request["accept"] = 'application/json'
     request["content-type"] = 'application/json'
-    request["authorization"] = "Bearer #{token}"
+    request["authorization"] = 'Bearer #{token}'
     
     request.body = {
       first_name: first_name,

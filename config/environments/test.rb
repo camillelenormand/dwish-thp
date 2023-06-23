@@ -73,6 +73,6 @@ Rails.application.configure do
 
 
   # Config urls for paygreen web service
-  config.return_url = "http://dwish-staging.herokuapp.com/checkouts/success"
-  config.cancel_url = "http://dwish-staging.herokuapp.com/checkouts/cancel"
+  config.return_url = "https://dwish-staging.herokuapp.com/checkouts/success"
+  config.cancel_url = "https://dwish-staging.herokuapp.com/checkouts/cancel"
 end

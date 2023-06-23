@@ -68,6 +68,7 @@ Rails.application.configure do
 
 
   # Config urls for mailer
+  config.action_mailer.delivery_method = :mailjet
   config.action_mailer.default_url_options = { :host => "dwish-staging.herokuapp.com" }
 
 

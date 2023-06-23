@@ -4,20 +4,18 @@ class WebhooksController < ApplicationController
   def create
     puts "-------- webhook received ---------"
     order = Order.find_by(payment_order_id: params.dig(:id))
+    puts "order found: #{order.id}, status: #{order.status}, cart: #{order.cart_id}"
 
     if params.dig(:status) == 'payment_order.successed'
       
     begin
-      order.update!(status: "paid")
+      order.save(status: "paid")
       puts "------ order updated --- status: #{order.status}"
     rescue ActiveRecord::RecordInvalid => e
       puts e.record.errors.full_messages
       render json: { message: 'error' }
       return
     end
-
-    # Send confirmation email
-    send_confirmation_email
 
     # Find existing cart
     begin
@@ -40,6 +38,9 @@ class WebhooksController < ApplicationController
       render json: { message: 'error' }
       return
     end
+
+    # Send confirmation email
+    send_confirmation_email
 
       render json: { message: 'success' }
 

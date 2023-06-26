@@ -7,14 +7,18 @@ module PaygreenService
   API_BASE_URL = 'https://sb-api.paygreen.fr'.freeze
 
   def self.authenticate
+
+    # get shop_id and secret_key from ENV
     shop_id = ENV['PAYGREEN_SHOP_ID']
     p shop_id
     secret_key = ENV['PAYGREEN_SECRET_KEY']
     p secret_key
 
+    # create url
     url = URI("#{API_BASE_URL}/auth/authentication/#{shop_id}/secret-key")
     p url
 
+    # create http request
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     
@@ -22,9 +26,11 @@ module PaygreenService
     request["Authorization"] = secret_key
     p "request: #{request}"
     
+    # send request
     response = http.request(request)
     p response
 
+    # get token from response
     if response.is_a?(Net::HTTPSuccess)
       @token = JSON.parse(response.body)["data"]["token"]
     else
@@ -33,11 +39,15 @@ module PaygreenService
 
   end
 
+  # create payment order
   def self.create_payment_order(amount, first_name, last_name, email, phone, user_id)
+
+    # get token from authenticate method
     token = @token || authenticate
     shop_id = ENV['PAYGREEN_SHOP_ID']
     p shop_id
 
+    # get return_url and cancel_url from ENV
     if Rails.env.production?
       return_url = URI(Rails.application.config.return_url)
       p return_url
@@ -57,11 +67,14 @@ module PaygreenService
       return "Error: Rails.env not set"
     end
 
+    # create url
     url = URI("https://sb-api.paygreen.fr/payment/payment-orders")
 
+    # create http request
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
 
+    # create request
     request = Net::HTTP::Post.new(url)
     request["accept"] = 'application/json'
     request["content-type"] = 'application/json'
@@ -86,9 +99,11 @@ module PaygreenService
       shop_id: shop_id
     }.to_json
 
+    # send request
     response = http.request(request)
     puts response.read_body
 
+    # get hosted_payment_url and payment_order status and id from response
     if response.is_a?(Net::HTTPSuccess)
       hosted_payment_url = JSON.parse(response.body)["data"]["hosted_payment_url"]
       payment_order_id = JSON.parse(response.body)["data"]["id"]
@@ -105,6 +120,7 @@ module PaygreenService
 
   end
 
+  # get payment order
   def self.get_payment_order(payment_order_id)
     token = @token || authenticate
     url = URI("#{API_BASE_URL}/payment/payment-orders/#{payment_order_id}")
@@ -119,6 +135,7 @@ module PaygreenService
 
     response = http.request(request)
 
+    # get payment status and transaction id from response
     if response.is_a?(Net::HTTPSuccess)
       # get payment status and transaction id from response
       payment_order_status = JSON.parse(response.body)["data"]["status"]
@@ -137,6 +154,7 @@ module PaygreenService
     end
   end
 
+  # create buyer in Paygreen
   def self.create_buyer(first_name, last_name, email, phone_number, user_id)
     token = @token || authenticate
     url = URI("#{API_BASE_URL}/payment/buyers")

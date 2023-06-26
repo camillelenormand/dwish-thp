@@ -23,7 +23,7 @@ L'utilisateur pourra créer son compte en ligne et passer commande et payer en l
 - un catalogue des produits à la vente (sandwiches, salades, desserts, boissons)
 - un panier pour passer des commandes
 - le paiement en ligne des commandes à emporter
-- un système d'emails automatiques pour confirmer la création d'un compte utilisateur, le paiement en ligne, ...
+- un système d'emails automatiques pour confirmer la création d'un compte utilisateur, le paiement en ligne
 
 ### Base de données
 
@@ -33,7 +33,8 @@ Création d'une base de données Postgresql avec les tables suivantes
 - Orders
 - Products
 - Checkouts
-- ...
+- Cart
+- Cart Items
 
 ### Front
 
@@ -42,9 +43,9 @@ Création d'une base de données Postgresql avec les tables suivantes
 
 ### Backend
 
-- Utilisation de l'API Stripe
+- Utilisation de l'API Paygreen
 - Utilisation de l'API Zelty pour l'interface avec la caisse enregistreuse ( à voir)
-- Utilisation de Sendgrid ou Mailjet pour 
+- Utilisation de Mailjet pour l'envoi d'emails automatique
 
 ### Compétences techniques recherchées
 
@@ -52,8 +53,8 @@ Création d'une base de données Postgresql avec les tables suivantes
 - Javascript/HTML/CSS
 - Ruby on Rails
 - Scrum
-- Maîtrise de l'API Stripe
-- Maîtrise de l'API Sendgrid ou Mailjet
+- Maîtrise de l'API Paygreen
+- Maîtrise de l'API Mailjet
 
 ## MVP
 
@@ -71,4 +72,4 @@ Création d'une base de données Postgresql avec les tables suivantes
 
 ## Mentor
 
-Benoit Figea
+- Benoit Figea

@@ -1,4 +1,5 @@
 class CategoriesUpsertJob < ApplicationJob
+  include ZeltyService
   queue_as :default
 
   def perform(*args)

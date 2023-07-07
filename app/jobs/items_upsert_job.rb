@@ -1,5 +1,7 @@
 class ItemsUpsertJob < ApplicationJob
   queue_as :default
+  retry_on CustomAppException # defaults to 3s wait, 5 attempts
+  discard_on ActiveJob::DeserializationError
 
   def perform(*args)
     # Do something later

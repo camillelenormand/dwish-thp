@@ -35,7 +35,7 @@ module ZeltyService
         product_name = product["name"] || "No name" if product_name.nil?
         product_description = product["description"] || "No description" if product_description.nil?
         product_price = product["price"].to_i / 100 || "No price" if product_price.nil?
-        product_image = product["image"] || "No image" if product_image.nil?
+        product_image = product["image"] || "https://res.cloudinary.com/dhcqyjeip/image/upload/v1688735231/Dwish/no_picture_aj42vi.jpg" if product_image.nil?
         product_thumbnail = product["thumb"] || "No thumbnail" if product_thumbnail.nil?  
         product_tax = product["tax"].to_i / 100 || "No tax" if product_tax.nil?
         product_tags = product["tags"] || "No tags" if product_tags.nil?

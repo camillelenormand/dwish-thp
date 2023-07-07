@@ -145,10 +145,16 @@ GEM
       railties (>= 3.2)
     error_highlight (0.5.1)
     erubi (1.12.0)
+    et-orbi (1.2.7)
+      tzinfo
     ffi (1.15.5)
+    fugit (1.8.1)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
     globalid (1.1.0)
       activesupport (>= 5.0)
     high_voltage (3.1.2)
+    hirb (0.7.3)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -227,6 +233,7 @@ GEM
     public_suffix (5.0.1)
     puma (6.3.0)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.7.0)
     rack (3.0.7)
     rack-session (2.0.0)
@@ -246,6 +253,10 @@ GEM
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
     rake (13.0.6)
+    redis (5.0.6)
+      redis-client (>= 0.9.0)
+    redis-client (0.14.1)
+      connection_pool
     regexp_parser (2.8.1)
     reline (0.3.5)
       io-console (~> 0.5)
@@ -259,6 +270,8 @@ GEM
       netrc (~> 0.8)
     rexml (3.2.5)
     rubyzip (2.3.2)
+    rufus-scheduler (3.9.1)
+      fugit (~> 1.1, >= 1.1.6)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -272,6 +285,15 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.1.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
+    sidekiq-scheduler (5.0.3)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 6, < 8)
+      tilt (>= 1.4.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -331,6 +353,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.8)
   error_highlight (>= 0.4.0)
   high_voltage (~> 3.1)
+  hirb (~> 0.7.3)
   importmap-rails
   jbuilder
   letter_opener (~> 1.8)
@@ -340,7 +363,10 @@ DEPENDENCIES
   puma (>= 5.0)
   rails!
   rails-i18n (~> 7.0)
+  redis (~> 5.0)
   selenium-webdriver
+  sidekiq (~> 7.1)
+  sidekiq-scheduler (~> 5.0)
   sprockets-rails
   stimulus-rails
   turbo-rails

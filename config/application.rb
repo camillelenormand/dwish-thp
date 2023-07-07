@@ -13,7 +13,11 @@ module DwishThp
     config.i18n.default_locale = :fr
     config.autoload_paths << "#{Rails.root}/services"
     config.action_mailer.delivery_method = :mailjet
-
+    config.active_job.queue_adapter = :sidekiq
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.deliver_later_queue_name = "mailers" # defaults to "mailers"
+    config.action_mailer.raise_delivery_errors = true
+    
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

@@ -18,8 +18,17 @@ services:
   
   dwish-redis:
     image: redis:alpine
+    container_name: dwish-redis
+    volumes:
+      - redis_data:/data
     ports:
       - "6379:6379"
+  
+  sidekiq:
+    build: .  
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - app-storage:/rails/storage
 
   dwish-web:
     build: .
@@ -58,6 +67,7 @@ services:
 volumes:
   postgres_data: {}
   app-storage: {}
+  redis_data: {}
 
 networks:
   dwish-api-network:

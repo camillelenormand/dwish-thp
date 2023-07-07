@@ -3,8 +3,9 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @categories = Category.all
-    @items = Item.all
+    @categories = Category.all.includes(:items)
+    @items = Item.all.order(:category_id)
+    @items_by_category = @items.group_by(&:category_id)
   end
 
   # GET /items/1 or /items/1.json

@@ -1,22 +1,24 @@
 <div class="justify-content-sm-center mx-2">
-  <h1>Menu</h1>
+  <% @categories.each do |category| %>
+    <div class="justify-content-sm-center mx-2">
+      <h3><%= category.name %></h3>
     </div>
-        <% @categories.each do | category | %>
-          <div class="justify-content-sm-center mx-2">
-            <h3><%= category.name %></h3>
+    <% if @items_by_category[category.id].present? %>
+      <% @items_by_category[category.id].each do |item| %>
+        <div class="row row-cols-1 row-cols-md-4 row-cols-md-2 g-3 mb-3">
+          <div class="col-md-4">
+            <img src="<%= item.image_url %>" alt="<%= item.name %>" class="img-fluid" height="auto" />
           </div>
-            <% @items.select { |item| item.category.name == category.name }.each do |item| %>
-              <div class="row row-cols-1 row-cols-md-4 row-cols-md-2 g-3 mb-3">
-                <div class="col-md-4">
-                   <img src= "<%= item.image_url %>" alt="<%= item.name %>" class="img-fluid" height="auto" />
-                </div>
-                <div class="col-md-4">
-                  <%= render item %>
-                    <div class="p-2">
-                      <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class: "btn btn-info btn-dark", method: :post, data: { turbo: false } %> 
-                    </div>
-                </div>
-              </div>
-            <% end %>
-        <% end %>
+          <div class="col-md-4">
+            <%= render item %>
+            <div class="p-2">
+              <%= button_to "Ajouter au panier", cart_items_path(item_id: item.id), class: "btn btn-info btn-dark", method: :post, data: { turbo: false } %> 
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No items in this category.</p>
+    <% end %>
+  <% end %>
 </div>

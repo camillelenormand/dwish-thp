@@ -89,3 +89,11 @@ gem "administrate"
 
 gem "mailjet"
 
+
+gem "sidekiq-scheduler", "~> 5.0"
+
+gem "sidekiq", "~> 7.1"
+
+gem "redis", "~> 5.0"
+
+gem "hirb", "~> 0.7.3"

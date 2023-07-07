@@ -165,26 +165,29 @@ module PaygreenService
     request = Net::HTTP::Post.new(url)
     request["accept"] = 'application/json'
     request["content-type"] = 'application/json'
-    request["authorization"] = 'Bearer #{token}'
+    request["authorization"] = "Bearer #{token}"
     
     request.body = {
       first_name: first_name,
       last_name: last_name,
       email: email,
       phone_number: phone_number,
-      external_id: user_id
+      reference: "Dwish_Customer_"+user_id,
     }.to_json
 
     response = http.request(request)
+    puts response.read_body
     
     if response.is_a?(Net::HTTPSuccess)
       buyer_id = JSON.parse(response.body)["data"]["id"]
       return {
         buyer_id: buyer_id
       }
+  
     else
       raise "Error: #{response.body}"
     end
+
   end
 
 end

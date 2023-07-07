@@ -1,4 +1,5 @@
 class Category < ApplicationRecord
-  validates :name, presence: true, uniqueness: true
+  validates :zelty_id, presence: true
+  validates :name, presence: true
   has_many :items
 end

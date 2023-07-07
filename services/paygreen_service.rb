@@ -172,7 +172,7 @@ module PaygreenService
       last_name: last_name,
       email: email,
       phone_number: phone_number,
-      reference: "Dwish_Customer_"+user_id,
+      reference: "Dwish_Customer_"+user_id.to_s,
     }.to_json
 
     response = http.request(request)
@@ -183,6 +183,7 @@ module PaygreenService
       return {
         buyer_id: buyer_id
       }
+      puts "BUYER ID : #{buyer_id}"
   
     else
       raise "Error: #{response.body}"

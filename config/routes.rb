@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
   namespace :admin do
-    #  resources :orders     (will be used later)
       resources :items
       resources :categories
-    #  resources :cart_items (will be used later)
-    #  resources :carts      (will be used later)
-    #  resources :users      (will be used later)
-
       root to: "items#index"
     end
-  devise_for :users
+    
+    devise_for :users, controllers: {
+      :sessions => "users/sessions",
+      :registrations => "users/registrations" }
 
   resources :cart_items
   resources :carts

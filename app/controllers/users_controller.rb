@@ -60,9 +60,4 @@ class UsersController < ApplicationController
     redirect_to action: "show", id: current_user.id 
   end
 
-  def create_paygreen_user(first_name, last_name, email, phone_number, user_id)
-    PaygreenService.create_buyer(first_name, last_name, email, phone_number, user_id)
-    user = User.find_by(email: email).update!(paygreen_id: buyer_id)
-  end
-
 end
